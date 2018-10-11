@@ -29,8 +29,15 @@
        $ [17:14:58] Finished 'styles' after 1.63 s
        $ [17:15:00] Finished 'browserify-vendor' after 3.24 s
        $ [17:15:00] Starting 'browserify-watch'...
-
- - 3 后端环境
+       
+ - 3 编译fabric的orderer模块和peer模块，放到server/bin/linux(windows,drawin)/amd64/目录下，也可以直接从release中获取编译好的程序。
+       
+       bin/
+         └── linux
+             └── amd64
+                 ├── orderer
+                 └── peer
+ - 4 后端环境
        
        $ cd ../server && glide create && glide get
       
