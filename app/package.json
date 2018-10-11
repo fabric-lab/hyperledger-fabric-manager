@@ -1,0 +1,81 @@
+{
+  "name": "fabric-manager",
+  "description": "this is a simple hyperledger fabric manager",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fabric-lab/fabric-manager"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "postinstall": "bower install && gulp build"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-1"
+    ]
+  },
+  "dependencies": {
+    "@material-ui/core": "^1.0.0",
+    "@material-ui/icons": "^1.1.0",
+    "alt": "^0.17.8",
+    "async": "^1.5.0",
+    "body-parser": "^1.14.1",
+    "colors": "^1.1.2",
+    "compression": "^1.6.0",
+    "cryptiles": "^4.1.2",
+    "express": "^4.13.3",
+    "history": "^1.13.0",
+    "hoek": "^5.0.4",
+    "moment": "^2.22.1",
+    "mongoose": "^4.2.5",
+    "morgan": "^1.6.1",
+    "parsejson": "0.0.3",
+    "react": "^16.4.2",
+    "react-bootstrap-table": "^4.3.1",
+    "react-bootstrap-typeahead": "^3.1.3",
+    "react-day-picker": "^7.1.9",
+    "react-dom": "^16.2.0",
+    "react-json-view": "^1.19.1",
+    "react-jsonschema-form": "^1.0.3",
+    "react-jsonschema-form-extras": "^0.9.16",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-rte": "^0.16.1",
+    "request": "^2.65.0",
+    "serve-favicon": "^2.3.0",
+    "socket.io": "^1.3.7",
+    "swig": "^1.4.2",
+    "uglify-js": "^3.4.9",
+    "underscore": "^1.8.3",
+    "xml2js": "^0.4.15"
+  },
+  "devDependencies": {
+    "babel-core": "^6.1.19",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "babelify": "^7.2.0",
+    "bower": "^1.6.5",
+    "browserify": "^12.0.1",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-if": "^2.0.0",
+    "gulp-less": "^3.0.3",
+    "gulp-plumber": "^1.0.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.4.2",
+    "gulp-util": "^3.0.7",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.6.0"
+  },
+  "license": "MIT"
+}

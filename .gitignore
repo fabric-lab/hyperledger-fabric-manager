@@ -1,0 +1,11 @@
+server/vendor
+server/fabric_config.db
+server/config/
+server/.gopmfile
+app/node_modules/
+app/bower_components/
+server/bin
+server/static/css/
+server/static/js/
+server/server
+server/dist
