@@ -54,7 +54,5 @@
       最后启动后端服务
        
        $ go run main.go
-##赞助奖励
-
-可以通过扫描微信二维码进行赞助，感谢您的支持和鼓励
-<img width="150" height="150" src="https://github.com/fabric-lab/donate/blob/master/wx.jpg"/>
+## 赞助奖励
+<img width="300" height="300" src="https://github.com/fabric-lab/donate/blob/master/wx.jpg"/>
