@@ -55,4 +55,4 @@
        
        $ go run main.go
 ## 赞助奖励
-<img width="300" height="300" src="https://github.com/fabric-lab/donate/blob/master/wx.jpg"/>
+<img width="400" height="400" src="https://github.com/fabric-lab/donate/blob/master/wx.jpg"/>
