@@ -1,3 +1,9 @@
+## 发布版本
+
+- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/fabric-manager/releases/tag/V1.0.0)
+## 视频教程
+- [fabric manager 9分钟教程](https://pan.baidu.com/s/1wSzHM3U6vNi2PxuZzSFYnQ)
+
 ## 项目简介
 - 1 学习超级账本(hyperledger fabric) 入门必备工具。
 - 2 轻松搭建学习环境,无需使用docker容器。目前仅支持单机环境。
