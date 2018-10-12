@@ -57,4 +57,4 @@
 ##赞助奖励
 
 可以通过扫描微信二维码进行赞助，感谢您的支持和鼓励
-![image](https://github.com/fabric-lab/donate/blob/master/wx.jpg)
+<img width="150" height="150" src="https://github.com/fabric-lab/donate/blob/master/wx.jpg"/>
