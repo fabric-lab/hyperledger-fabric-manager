@@ -2,7 +2,8 @@
 
 - [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/fabric-manager/releases/tag/V1.0.0) 该版本仅支持fabric 1.1
 ## 视频教程
-- [fabric manager 9分钟教程](https://pan.baidu.com/s/1wSzHM3U6vNi2PxuZzSFYnQ)
+- [fabric manager bilibili 9分钟教程](https://www.bilibili.com/video/av33670267/)
+- [fabric manager baidu 9分钟教程](https://pan.baidu.com/s/1wSzHM3U6vNi2PxuZzSFYnQ)
 
 ## 项目简介
 - 1 学习超级账本(hyperledger fabric) 入门必备工具。
