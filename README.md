@@ -1,6 +1,6 @@
 ## 发布版本
 
-- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/fabric-manager/releases/tag/V1.0.0)
+- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/fabric-manager/releases/tag/V1.0.0) 该版本仅支持fabric 1.1
 ## 视频教程
 - [fabric manager 9分钟教程](https://pan.baidu.com/s/1wSzHM3U6vNi2PxuZzSFYnQ)
 
@@ -36,7 +36,7 @@
        $ [17:15:00] Finished 'browserify-vendor' after 3.24 s
        $ [17:15:00] Starting 'browserify-watch'...
        
- - 3 编译fabric的orderer模块和peer模块，放到server/bin/linux(windows,drawin)/amd64/目录下，也可以直接从release中获取编译好的程序。
+ - 3 编译fabric 1.1的orderer组件和peer组件，放到server/bin/linux(windows,drawin)/amd64/目录下，也可以直接从[v1.1.0.0-2018.10.12](https://github.com/fabric-lab/fabric-manager/releases/tag/V1.0.0)中获取编译好的程序。
        
        bin/
          └── linux
