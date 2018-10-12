@@ -56,3 +56,10 @@
        $ go run main.go
 ## 赞助奖励
 <img width="400" height="400" src="https://github.com/fabric-lab/donate/blob/master/wx.jpg"/>
+| 赞助者         | 捐助项目         | 数额       |
+| :------------  |:----------------: | ---------: |
+|*鱼         | fabric-manager   | 66          |
+|FeiFree        | fabric-manager  | 200        |
+|王*鹏           | fabric-manager   | 1500      |
+|宋*雷           | fabric-manager   | 100        |
+|*俊     | fabric-manager    |  10         | 
