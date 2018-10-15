@@ -6,37 +6,37 @@ const schema = {
       Name:{
         type: "string",
         default: "Peer",
-        title:"名称(ID)"
+        title:"node_name"
       },
       ListenAddress:{
         type: "string",
         default: "127.0.0.1",
-        title:"IP地址"
+        title:"ip_address"
       },
       ListenPort:{
         type: "number",
         default: 7051,
-        title:"端口"
+        title:"port"
       },
       ChainCodeListenPort:{
         type: "number",
         default: 7052,
-        title:"链码监听端口"
+        title:"chaincode_port"
       },
       EventListenPort:{
         type: "number",
         default: 7053,
-        title:"事件监听端口"
+        title:"Event端口"
       },
       LocalMSPID:{
         type: "string",
         enum: [],
-        title: "当前节点MSP"
+        title: "peer_msp"
       },
       AdminMSPID:{
         type: "string",
         enum: [],
-        title: "管理员MSP"
+        title: "admin_msp"
       }
     }
  

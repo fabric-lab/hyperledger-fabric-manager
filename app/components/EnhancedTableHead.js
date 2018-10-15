@@ -5,6 +5,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
+import { injectIntl  } from 'react-intl';
 
 class EnhancedTableHead extends React.Component {
 
@@ -19,7 +20,7 @@ class EnhancedTableHead extends React.Component {
  
 
     render() {
-        const { order, orderBy,columnData,data  } = this.props;
+        const { order, orderBy,columnData,data,intl  } = this.props;
 
         return (
           <TableHead>
@@ -43,14 +44,14 @@ class EnhancedTableHead extends React.Component {
                         direction={order}
                         onClick={this.createSortHandler(column.id)}
                       >
-                        {column.label}
+                        {intl.formatMessage({id:column.label}) }
                       </TableSortLabel>
                     </Tooltip>
                   </TableCell>
                 );
               }, this)}
               <TableCell >
-                操作
+                {intl.formatMessage({id:"operation"}) }
               </TableCell>
             </TableRow>
           </TableHead>
@@ -59,4 +60,4 @@ class EnhancedTableHead extends React.Component {
     }
 }
 
-export default EnhancedTableHead;
+export default injectIntl(EnhancedTableHead);

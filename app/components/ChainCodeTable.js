@@ -25,12 +25,12 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 
 const columnData = [
-  { id: 'Name', numeric: true, disablePadding: false, label: '链码名称' },
-  { id: 'Path', numeric: true, disablePadding: false, label: '路径' },
-  { id: 'Lang', numeric: true, disablePadding: false, label: '语言' },
-  { id: 'Version', numeric: true, disablePadding: false, label: '版本' },
-  { id: 'PeerName', numeric: true, disablePadding: false, label: 'Peer节点' },
-  { id: 'State', numeric: true, disablePadding: false, label: '是否启动' },
+  { id: 'Name', numeric: true, disablePadding: false, label: 'chaincode_name' },
+  { id: 'Path', numeric: true, disablePadding: false, label: 'path' },
+  { id: 'Lang', numeric: true, disablePadding: false, label: 'language' },
+  { id: 'Version', numeric: true, disablePadding: false, label: 'version' },
+  { id: 'PeerName', numeric: true, disablePadding: false, label: 'peer_node' },
+  { id: 'State', numeric: true, disablePadding: false, label: 'enabled' },
 ];
 
 

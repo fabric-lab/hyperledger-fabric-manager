@@ -4,21 +4,21 @@ const schema = {
     properties: {
       Name: {
         type:"string",
-        title:"通道名称(ID)",
+        title:"channel_name",
       },
       Desc: {
         type:"string",
-        title:"通道描述",
+        title:"channel_desc",
       },
       Consortium:{
         type: "string",
         enum: [],
-        title: "联盟"
+        title: "consortiums"
       },
       OrdererName:{
         type: "string",
         enum: [],
-        title: "Order节点"
+        title: "orderer_name"
       }
     }
 

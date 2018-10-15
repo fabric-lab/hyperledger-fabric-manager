@@ -25,13 +25,13 @@ import EnhancedTableToolbar from './EnhancedTableToolbar';
 
 
 const columnData = [
-  { id: 'Name', numeric: true, disablePadding: false, label: '名称(ID)' },
-  { id: 'ListenAddress', numeric: true, disablePadding: false, label: 'IP地址' },
-  { id: 'ListenPort', numeric: true, disablePadding: false, label: '端口' },
-  { id: 'ChainCodeListenPort', numeric: true, disablePadding: false, label: 'ChainCode监听端口' },
-  { id: 'EventListenPort', numeric: true, disablePadding: false, label: '事件监听端口' },
-  { id: 'LocalMSPID', numeric: true, disablePadding: false, label: '当前节点MSP' },
-  { id: 'AdminMSPID', numeric: true, disablePadding: false, label: '管理员MSP' },
+  { id: 'Name', numeric: true, disablePadding: false, label: 'node_name' },
+  { id: 'ListenAddress', numeric: true, disablePadding: false, label: 'ip_address' },
+  { id: 'ListenPort', numeric: true, disablePadding: false, label: 'port' },
+  { id: 'ChainCodeListenPort', numeric: true, disablePadding: false, label: 'chaincode_name' },
+  { id: 'EventListenPort', numeric: true, disablePadding: false, label: 'event_port' },
+  { id: 'LocalMSPID', numeric: true, disablePadding: false, label: 'peer_msp' },
+  { id: 'AdminMSPID', numeric: true, disablePadding: false, label: 'admin_msp' },
   
 ];
 

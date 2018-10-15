@@ -21,10 +21,11 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import EnhancedTableHead from './EnhancedTableHead'
+import { injectIntl  } from 'react-intl';
 
 
 const columnData = [
-  { id: 'Name', numeric: true, disablePadding: false, label: '公用名称' }
+  { id: 'Name', numeric: true, disablePadding: false, label: 'common_name' }
 ];
 
 
@@ -118,7 +119,7 @@ class CertTable extends React.Component {
 
   render() {
 
-    const { classes, history, data, selected } = this.props;
+    const { classes, history, data, selected,intl } = this.props;
     const { order, orderBy, pems, commonName } = this.state;
 
 
@@ -126,7 +127,7 @@ class CertTable extends React.Component {
       <div className='container'>
         <div className='row flipInX'>
           <Paper className={classes.root}>
-            <EnhancedTableToolbar title="证书" />
+            <EnhancedTableToolbar title={intl.formatMessage({id:"certificate"}) } />
             <div className={classes.tableWrapper}>
               <Table className={classes.table} aria-labelledby="tableTitle">
                 <EnhancedTableHead
@@ -143,7 +144,7 @@ class CertTable extends React.Component {
                       >
                         <TableCell numeric>{n.Name}</TableCell>
                         <TableCell>
-                          <Button variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name, commonName)} >  查看 </Button>
+                          <Button variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name, commonName)} >  {intl.formatMessage({id:"view"}) }  </Button>
                         </TableCell>
                       </TableRow>
                     );
@@ -165,4 +166,4 @@ CertTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CertTable);
+export default withStyles(styles)(injectIntl(CertTable));

@@ -4,36 +4,36 @@ const schema = {
     properties: {
       Name: {
         type:"string",
-        title:"链码名称",
+        title:"chaincode_name",
       },
       Path: {
         type:"string",
-        title:"路径",
+        title:"path",
       },
       Lang: {
         type:"string",
-        title:"语言",
+        title:"language",
       },
       Version: {
         type:"string",
-        title:"版本",
+        title:"version",
       },
       PeerName:{
         type: "string",
         enum: [],
-        title: "Peer节点"
+        title: "peers"
       },
       Init: {
         type:"string",
-        title:"初始化语句",
+        title:"init_code",
       },
       Invoke: {
         type:"string",
-        title:"调用语句",
+        title:"invoke_code",
       },
       Query: {
         type:"string",
-        title:"查询语句",
+        title:"query_code",
       },
     }
 

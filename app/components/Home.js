@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+
 const styles = {
   card: {
     minWidth: 275,
@@ -49,9 +50,8 @@ class Home extends React.Component {
           <Card className={classes.card}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary">
-                项目简介
+                项目简介 
                 </Typography>
-
               <Typography className={classes.pos} color="textSecondary">
                 1 学习超级账本(hyperledger fabric) 入门必备工具。
                 </Typography>

@@ -25,11 +25,11 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 
 const columnData = [
-  { id: 'Name', numeric: true, disablePadding: false, label: '通道名称(ID)' },
-  { id: 'Consortium', numeric: true, disablePadding: false, label: '联盟' },
-  { id: 'OrdererName', numeric: true, disablePadding: false, label: 'Order节点' },
-  { id: 'State', numeric: true, disablePadding: false, label: '是否启用' },
-  { id: 'Desc', numeric: true, disablePadding: false, label: '通道描述' },
+  { id: 'Name', numeric: true, disablePadding: false, label: 'channel_name' },
+  { id: 'Consortium', numeric: true, disablePadding: false, label: 'consortium' },
+  { id: 'OrdererName', numeric: true, disablePadding: false, label: 'orderer_name' },
+  { id: 'State', numeric: true, disablePadding: false, label: 'enabled' },
+  { id: 'Desc', numeric: true, disablePadding: false, label: 'channel_desc' },
   
 ];
 

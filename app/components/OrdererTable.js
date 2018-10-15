@@ -25,12 +25,12 @@ import EnhancedTableToolbar from './EnhancedTableToolbar';
 
 
 const columnData = [
-  { id: 'Name', numeric: true, disablePadding: false, label: '名称' },
-  { id: 'LedgerType', numeric: true, disablePadding: false, label: '账本类型' },
-  { id: 'ListenAddress', numeric: true, disablePadding: false, label: 'IP地址' },
-  { id: 'ListenPort', numeric: true, disablePadding: false, label: '端口' },
-  { id: 'LocalMSPID', numeric: true, disablePadding: false, label: 'MSP ID' },
-  { id: 'Consortiums', numeric: true, disablePadding: false, label: '联盟' },
+  { id: 'Name', numeric: true, disablePadding: false, label: 'node_name' },
+  { id: 'LedgerType', numeric: true, disablePadding: false, label: 'ledger_type' },
+  { id: 'ListenAddress', numeric: true, disablePadding: false, label: 'ip_address' },
+  { id: 'ListenPort', numeric: true, disablePadding: false, label: 'port' },
+  { id: 'LocalMSPID', numeric: true, disablePadding: false, label: 'msp_id' },
+  { id: 'Consortiums', numeric: true, disablePadding: false, label: 'consortium' },
   
 ];
 
