@@ -21,6 +21,7 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
+import { injectIntl  } from 'react-intl';
 
 
 
@@ -121,12 +122,12 @@ class OrdererTable extends React.Component {
   }
 
   render() {
-    const { classes, history,data } = this.props;
+    const { classes, history,data,intl } = this.props;
     const { order, orderBy, selected } = this.state;
-    const tooltip = (<Tooltip title="添加order">
+    const tooltip = (<Tooltip title={intl.formatMessage({id:'orderer_manage'})}>
       <Button variant="raised" color="primary" className={classes.button} onClick={this.addOrderer}>
         <AddIcon className={classes.leftIcon} />
-        添加order
+        {intl.formatMessage({id:'add_orderer'})}
       </Button>
     </Tooltip>
     )
@@ -134,7 +135,7 @@ class OrdererTable extends React.Component {
       <div className='container'>
         <div className='row flipInX'>
           <Paper className={classes.root}>
-          <EnhancedTableToolbar title="order节点" tooltip={tooltip} />
+          <EnhancedTableToolbar title={intl.formatMessage({id:'orderer_manage'})} tooltip={tooltip} />
             <div className={classes.tableWrapper}>
               <Table className={classes.table} aria-labelledby="tableTitle">
               <EnhancedTableHead
@@ -156,9 +157,9 @@ class OrdererTable extends React.Component {
                         <TableCell numeric>{n.LocalMSPID}</TableCell>
                         <TableCell numeric>{n.Consortiums==null?"":n.Consortiums.join()}</TableCell>
                         <TableCell>
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.Name)} >  删除 </Button>
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name)} >  查看 </Button>
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleConsoleClick(event, n.Name)} >  控制台 </Button>
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.Name)} >  {intl.formatMessage({id:'delete'})} </Button>
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name)} >  {intl.formatMessage({id:'view'})} </Button>
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleConsoleClick(event, n.Name)} >  {intl.formatMessage({id:'console_panel'})} </Button>
                         </TableCell>
                       </TableRow>
                     );
@@ -180,4 +181,4 @@ OrdererTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(OrdererTable);
+export default withStyles(styles)(injectIntl(OrdererTable));

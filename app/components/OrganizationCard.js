@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import JsonForm from './JsonForm';
 import {organizationSchema} from '../json_schema/organization'
+import { injectIntl  } from 'react-intl';
 
 
 class OrganizationCard extends React.Component {
@@ -36,7 +37,8 @@ class OrganizationCard extends React.Component {
 
     render() {
         let that = this;
-        
+        const { intl } = this.props;
+
         const handleFormSubmit = ({formData}) => {
 
             var url = `api/entity/organizations/${formData.CommonName}`;
@@ -64,7 +66,7 @@ class OrganizationCard extends React.Component {
                         <div className='col-sm-3    '/>
                         <div className='col-sm-6    '>
                             <div className='panel panel-default'>
-                                <div className='panel-heading'>{this.state.formMode=="view"?"查看组织":"添加组织"}</div>
+                                <div className='panel-heading'>{this.state.formMode=="view"?intl.formatMessage({id:'view'}):intl.formatMessage({id:'add_organization'}) }</div>
                                 <div className='panel-body'>
                                 <JsonForm schema={organizationSchema}  handleForm={handleFormSubmit} formData={this.state.formData} formMode={this.state.formMode} history={this.props.history}/>
                                 </div>
@@ -77,5 +79,5 @@ class OrganizationCard extends React.Component {
     }
 }
 
-export default OrganizationCard;
+export default injectIntl(OrganizationCard);
 

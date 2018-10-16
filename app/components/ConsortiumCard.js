@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import JsonForm from './JsonForm';
 import {schema,uiSchema,formData} from '../json_schema/consortium'
+import { injectIntl  } from 'react-intl';
 
 
 class ConsortiumCard extends React.Component {
@@ -71,6 +72,7 @@ class ConsortiumCard extends React.Component {
     }
 
     render() {
+        const { intl } = this.props;
         let that = this;
         const handleFormSubmit = ({formData}) => {
             // formData.OrderName = this.props.location.state.OrderName;
@@ -96,7 +98,7 @@ class ConsortiumCard extends React.Component {
                         <div className='col-sm-3    '/>
                         <div className='col-sm-6    '>
                             <div className='panel panel-default'>
-                                <div className='panel-heading'>{this.state.formMode=="view"?"查看联盟":"添加联盟"}</div>
+                                <div className='panel-heading'>{this.state.formMode=="view"?intl.formatMessage({id:'view'}):intl.formatMessage({id:'add_consortium'}) }</div>
                                 <div className='panel-body'>
                                { this.state.isInit && <JsonForm schema={this.state.schema} uiSchema={uiSchema} handleForm={handleFormSubmit} formData={this.state.formData} formMode={this.state.formMode} history={this.props.history}/>}
                                 </div>
@@ -111,5 +113,5 @@ class ConsortiumCard extends React.Component {
     }
 }
 
-export default ConsortiumCard;
+export default injectIntl(ConsortiumCard);
 

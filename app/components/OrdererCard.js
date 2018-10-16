@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import JsonForm from './JsonForm';
 import {schema,uiSchema,formData} from '../json_schema/orderer'
+import { injectIntl  } from 'react-intl';
 
 
 class OrdererCard extends React.Component {
@@ -76,7 +77,7 @@ class OrdererCard extends React.Component {
 
     render() {
         let that = this;
-
+        const { intl } = this.props;
         const handleFormSubmit = ({formData}) => {
             var url = `api/entity/orderers/${formData.Name}`;
             fetch(url,{
@@ -99,7 +100,7 @@ class OrdererCard extends React.Component {
                         <div className='col-sm-3    '/>
                         <div className='col-sm-6    '>
                             <div className='panel panel-default'>
-                                <div className='panel-heading'>{this.state.formMode=="view"?"查看ORDERER节点":"添加ORDERER节点"} </div>
+                                <div className='panel-heading'>{this.state.formMode=="view"?intl.formatMessage({id:'view'}):intl.formatMessage({id:'add_orderer'}) } </div>
                                 <div className='panel-body'>
                                 { this.state.isInit && <JsonForm schema={this.state.schema} uiSchema={uiSchema} handleForm={handleFormSubmit} formData={this.state.formData} formMode={this.state.formMode} history={this.props.history}/>}
                                 </div>
@@ -114,5 +115,5 @@ class OrdererCard extends React.Component {
     }
 }
 
-export default OrdererCard;
+export default injectIntl(OrdererCard);
 

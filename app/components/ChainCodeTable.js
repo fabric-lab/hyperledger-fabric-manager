@@ -22,6 +22,7 @@ import Icon from '@material-ui/core/Icon';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { injectIntl  } from 'react-intl';
 
 
 const columnData = [
@@ -29,7 +30,7 @@ const columnData = [
   { id: 'Path', numeric: true, disablePadding: false, label: 'path' },
   { id: 'Lang', numeric: true, disablePadding: false, label: 'language' },
   { id: 'Version', numeric: true, disablePadding: false, label: 'version' },
-  { id: 'PeerName', numeric: true, disablePadding: false, label: 'peer_node' },
+  { id: 'PeerName', numeric: true, disablePadding: false, label: 'peer_manage' },
   { id: 'State', numeric: true, disablePadding: false, label: 'enabled' },
 ];
 
@@ -169,12 +170,12 @@ class ChainCodeTable extends React.Component {
 
 
   render() {
-    const { classes, history, data } = this.props;
+    const { classes, history, data,intl } = this.props;
     const { order, orderBy } = this.state;
-    const tooltip = (<Tooltip title="添加链码">
+    const tooltip = (<Tooltip title={intl.formatMessage({id:'add_chaincode'})}>
       <Button variant="raised" color="primary" className={classes.button} onClick={this.addChainCode}>
         <AddIcon className={classes.leftIcon} />
-        添加链码
+        {intl.formatMessage({id:'add_chaincode'})}
     </Button>
     </Tooltip>
     )
@@ -183,7 +184,7 @@ class ChainCodeTable extends React.Component {
         <div className='row flipInX'>
           <Paper className={classes.root}>
             {this.state.loading && <LinearProgress />}
-            <EnhancedTableToolbar title="链码" tooltip={tooltip} />
+            <EnhancedTableToolbar title={intl.formatMessage({id:'chaincode'})} tooltip={tooltip} />
             <div className={classes.tableWrapper}>
               <Table className={classes.table} aria-labelledby="tableTitle">
                 <EnhancedTableHead
@@ -203,13 +204,13 @@ class ChainCodeTable extends React.Component {
                         <TableCell numeric>{n.Lang}</TableCell>
                         <TableCell numeric>{n.Version}</TableCell>
                         <TableCell numeric>{n.PeerName}</TableCell>
-                        <TableCell numeric>{n.State=="enable"?"已启动":"未启动"}</TableCell>
+                        <TableCell numeric>{n.State=="enable"?intl.formatMessage({id:'able'}):intl.formatMessage({id:'disable'})}</TableCell>
                    
                         <TableCell>
-                         {n.State !="enable" && <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.Name+"."+n.PeerName)} >  删除 </Button>}
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name+"."+n.PeerName)} >  查看 </Button>
-                         {n.State =="disable" && <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleCmdClick(event,"NODE_START", n.Name,n.PeerName)} >  启动链码 </Button> }
-                         {n.State =="enable" && <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleCmdClick(event,"NODE_STOP", n.Name,n.PeerName)} >  停止链码 </Button> }
+                         {n.State !="enable" && <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.Name+"."+n.PeerName)} >  {intl.formatMessage({id:'delete'})} </Button>}
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name+"."+n.PeerName)} >   {intl.formatMessage({id:'view'})}  </Button>
+                         {n.State =="disable" && <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleCmdClick(event,"NODE_START", n.Name,n.PeerName)} >  {intl.formatMessage({id:'run_chaincode'})} </Button> }
+                         {n.State =="enable" && <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleCmdClick(event,"NODE_STOP", n.Name,n.PeerName)} >  {intl.formatMessage({id:'stop_chaincode'})} </Button> }
                         </TableCell>
                       </TableRow>
                     );
@@ -231,4 +232,4 @@ ChainCodeTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ChainCodeTable);
+export default withStyles(styles)(injectIntl(ChainCodeTable));

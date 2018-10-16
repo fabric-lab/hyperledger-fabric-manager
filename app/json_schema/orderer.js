@@ -42,7 +42,7 @@ const schema = {
             type: "string",
           },
           uniqueItems: true,
-          title:"联盟"
+          title:"consortiums"
         }
 
       }
