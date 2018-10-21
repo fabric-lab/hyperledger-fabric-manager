@@ -13,7 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import ReactJson from 'react-json-view';
 import { injectIntl  } from 'react-intl';
-
+import {msgToObj} from '../util'
 
 const styles = theme => ({
     button: {
@@ -55,7 +55,7 @@ class OrdererConsoleCard extends React.Component {
         this.state = {
             cmd: "NODE_START",
             log: "",
-            state: "",
+            state: "stop",
             nodeName: "",
             loading: false,
             channelId:"system-channel",
@@ -125,7 +125,7 @@ class OrdererConsoleCard extends React.Component {
             data.ChannelId = this.state.channelId;
             data.Seek = this.state.blockNum;
         }
-        that.setState({ loading: true, log: intl.formatMessage({id:'running'})} );
+        that.setState({ loading: true, log: this.props.intl.formatMessage({id:'running'})} );
         var url = `api/entity/orderers/${this.state.nodeName}/cmd`;
         fetch(url, {
             method: 'put',
@@ -133,7 +133,9 @@ class OrdererConsoleCard extends React.Component {
         }).then(function (response) {
             return response.json()
         }).then(function (data) {
-            that.setState({ log: data.msg, state: data.state, loading: false });
+            let msgObj = msgToObj(data.msg)
+            let msg = that.props.intl.formatMessage(msgObj[0],msgObj[1]);
+            that.setState({ log: msg, state: data.state, loading: false });
         }).catch(function (e) {
             console.log(e);
         });
@@ -156,7 +158,7 @@ class OrdererConsoleCard extends React.Component {
                 <div >
                     <div className='col-sm-3 '>
                         <div className='panel panel-default'>
-                            <div className='panel-heading'>{nodeName} {state}</div>
+                            <div className='panel-heading'>{nodeName} {intl.formatMessage({id:state})}</div>
                             <div className='panel-body'>
                                 <Select
                                     className={classes.select}

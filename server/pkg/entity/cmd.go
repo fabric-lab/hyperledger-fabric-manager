@@ -110,21 +110,21 @@ func ExecPeer(cmdInfo map[string]string) string {
 		return msg
 	case "CHAINCODE_INIT":
 		if orderCache == nil {
-			return "请先启动orderer节点【" + ordererName + "】"
+			return "desc_3"+"|" + ordererName
 		}
 		cmd := exec.Command(peerBin, "chaincode", "instantiate", "-n", name, "-v", version, "-c", json, "-C", channelId, "-o", ordererEndpoint)
 		msg := run(true, ALLINFO, cmd, peerPath)
 		return msg
 	case "CHAINCODE_INVOKE":
 		if orderCache == nil {
-			return "请先启动orderer节点【" + ordererName + "】"
+			return "desc_3"+"|" + ordererName
 		}
 		cmd := exec.Command(peerBin, "chaincode", "invoke", "-n", name, "-c", json, "-C", channelId, "-o", ordererEndpoint)
 		msg := run(true, ALLINFO, cmd, peerPath)
 		return msg
 	case "CHAINCODE_QUERY":
 		if orderCache == nil {
-			return "请先启动orderer节点【" + ordererName + "】"
+			return "desc_3"+"|" + ordererName
 		}
 		cmd := exec.Command(peerBin, "chaincode", "query", "-n", name, "-c", json, "-C", channelId, "-o", ordererEndpoint)
 		msg := run(true, ALLINFO, cmd, peerPath)
@@ -186,7 +186,7 @@ func ExecChainCode(cmdInfo map[string]string) string {
 	case "NODE_START":
 		cache := util.Caches.Get(peerCacheNodeName)
 		if cache == nil {
-			return "请先启动当前Peer节点:" + peerNodeName
+			return "desc_4"+"|" + peerNodeName
 		}
 		cache = util.Caches.Get(cacheNodeName)
 		if cache != nil {
@@ -264,7 +264,7 @@ func run(isSycn bool, outType int, cmd *exec.Cmd, config string) string {
 	} else if outType == ERRINFO {
 		return errStr
 	}
-	return fmt.Sprintf("环境变量:%s\n命令:%s\n执行完成\n\n\n%s\n\n\n%s", fabricCFGPath, strings.Join(cmd.Args, " "), errStr, outStr)
+	return fmt.Sprintf("Environment:%s\nCommand:%s\n\n\n%s\n\n\n%s", fabricCFGPath, strings.Join(cmd.Args, " "), errStr, outStr)
 }
 
 func Seek(cmdInfo map[string]string) string {

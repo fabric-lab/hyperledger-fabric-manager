@@ -12,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import ReactJson from 'react-json-view';
+import { injectIntl  } from 'react-intl';
 
 const styles = theme => ({
     button: {
@@ -54,7 +55,7 @@ class PeerConsoleCard extends React.Component {
             cmd: "NODE_START",
             log: "",
             msp: "",
-            state: "",
+            state: "stop",
             nodeName: "",
             loading: false,
             channels: [],
@@ -187,7 +188,7 @@ class PeerConsoleCard extends React.Component {
         data.Path = this.state.path;
         data.ChannelId = this.state.cid;
         data.Json = this.state.json;
-        that.setState({ loading: true, log: "运行中......." });
+        that.setState({ loading: true, log:this.props.intl.formatMessage({id:'running'}) });
         var url = `api/entity/peers/${this.state.nodeName}/cmd`;
         fetch(url, {
             method: 'put',
@@ -195,7 +196,7 @@ class PeerConsoleCard extends React.Component {
         }).then(function (response) {
             return response.json();
         }).then(function (data) {
-            that.setState({ log: data.msg, state: data.state, loading: false });
+            that.setState({ log: that.props.intl.formatMessage({id:data.msg}), state: data.state, loading: false });
         }).catch(function (e) {
             console.log(e);
         });
@@ -204,7 +205,7 @@ class PeerConsoleCard extends React.Component {
 
     render() {
         let that = this;
-        const { classes } = this.props;
+        const { classes,intl } = this.props;
         const { cmd, log, msp, state, nodeName, channels, cid, chaincodes, chaincode } = this.state;
 
         let isJson = false;
@@ -233,23 +234,23 @@ class PeerConsoleCard extends React.Component {
                 <div >
                     <div className='col-sm-3 '>
                         <div className='panel panel-default'>
-                            <div className='panel-heading'>{nodeName} {state}</div>
+                            <div className='panel-heading'>{nodeName} {intl.formatMessage({id:state})}</div>
                             <div className='panel-body'>
                                 <Select
                                     className={classes.select}
                                     value={cmd}
                                     onChange={this.handleChange('cmd')}
                                 >
-                                    <MenuItem value="NODE_START" key={1} >  启动节点  </MenuItem>
-                                    <MenuItem value="NODE_STOP" key={2} >  停止节点  </MenuItem>
-                                    <MenuItem value="CHANNEL_LIST" key={3} >  通道清单  </MenuItem>
-                                    <MenuItem value="CHANNEL_JOIN" key={4} >  加入通道  </MenuItem>
-                                    <MenuItem value="CHANNEL_GETINFO" key={10} >  获取通道信息  </MenuItem>
-                                    <MenuItem value="CHAINCODE_INSTALL" key={5} >  安装链码  </MenuItem>
-                                    <MenuItem value="CHAINCODE_LIST" key={6} >  链码清单  </MenuItem>
-                                    <MenuItem value="CHAINCODE_INIT" key={7} >  初始化链码  </MenuItem>
-                                    <MenuItem value="CHAINCODE_INVOKE" key={8} >  调用链码  </MenuItem>
-                                    <MenuItem value="CHAINCODE_QUERY" key={9} >  查询链码  </MenuItem>
+                                    <MenuItem value="NODE_START" key={1} >  {intl.formatMessage({id:'run_node'})}  </MenuItem>
+                                    <MenuItem value="NODE_STOP" key={2} >  {intl.formatMessage({id:'stop_node'})}  </MenuItem>
+                                    <MenuItem value="CHANNEL_LIST" key={3} >   {intl.formatMessage({id:'channel_list'})}  </MenuItem>
+                                    <MenuItem value="CHANNEL_JOIN" key={4} >  {intl.formatMessage({id:'join_channel'})}   </MenuItem>
+                                    <MenuItem value="CHANNEL_GETINFO" key={10} >  {intl.formatMessage({id:'get_channel_info'})}  </MenuItem>
+                                    <MenuItem value="CHAINCODE_INSTALL" key={5} >  {intl.formatMessage({id:'install_chaincode'})}  </MenuItem>
+                                    <MenuItem value="CHAINCODE_LIST" key={6} >   {intl.formatMessage({id:'chaincode_list'})}  </MenuItem>
+                                    <MenuItem value="CHAINCODE_INIT" key={7} >  {intl.formatMessage({id:'init_chaincode'})}  </MenuItem>
+                                    <MenuItem value="CHAINCODE_INVOKE" key={8} >  {intl.formatMessage({id:'invoke_chaincode'})}  </MenuItem>
+                                    <MenuItem value="CHAINCODE_QUERY" key={9} >  {intl.formatMessage({id:'query_chaincode'})}  </MenuItem>
 
                                 </Select>
                                 {(cmd === "CHANNEL_JOIN" || cmd === "CHAINCODE_INIT" || cmd == "CHANNEL_GETINFO" || cmd == "CHAINCODE_INIT" || cmd === "CHAINCODE_INVOKE" || cmd === "CHAINCODE_QUERY") && <Select className={classes.select} value={cid} onChange={this.handleChange('cid')}>{item}</Select>}
@@ -265,7 +266,7 @@ class PeerConsoleCard extends React.Component {
 
 
                                 <Button variant="raised" color="primary" className={classes.button} onClick={this.execCmd.bind(this)} >
-                                    执行命令
+                                {intl.formatMessage({id:'run_cmd'})}
                                 </Button>
                             </div>
                         </div>
@@ -274,7 +275,7 @@ class PeerConsoleCard extends React.Component {
                     <div className='col-sm-8    '>
                         <div className={'panel panel-default ' + classes.panel}>
                             {this.state.loading && <LinearProgress />}
-                            <div className='panel-heading'>日志</div>
+                            <div className='panel-heading'>{intl.formatMessage({id:'log'})}</div>
                             <div className='panel-body'>
                                 {!isJson && <TextField rowsMax="100" margin="normal" className={classes.textField} value={log} multiline={true} />}
                                 {isJson && <ReactJson src={json} />}
@@ -294,6 +295,6 @@ PeerConsoleCard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PeerConsoleCard);
+export default withStyles(styles)(injectIntl(PeerConsoleCard));
 
 
