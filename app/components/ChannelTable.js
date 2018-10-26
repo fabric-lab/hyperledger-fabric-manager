@@ -87,7 +87,6 @@ class ChannelTable extends React.Component {
   };
 
   handleCmdClick = (event, key) => {
-
     let that = this;
     let data = {}
     data.Cmd = "CHANNEL_CREATE";
@@ -114,7 +113,7 @@ class ChannelTable extends React.Component {
           that.props.callback({ data: newDatas, selected: 0 });
        }else{
           that.setState({ loading: false });
-          alert("启用通道失败，请确认 1.对应Order节点是否已经启动。 2.已经存在同名通道");
+          alert(that.props.intl.formatMessage({id:'desc_5'}));
        }
        
     }).catch(function(e) {
