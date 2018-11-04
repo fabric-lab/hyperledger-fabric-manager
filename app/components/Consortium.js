@@ -1,5 +1,6 @@
 import React from 'react';
 import ConsortiumTable from './ConsortiumTable';
+import { injectIntl  } from 'react-intl';
 
 
 class Consortium extends React.Component {
@@ -17,7 +18,7 @@ class Consortium extends React.Component {
     }
 
     componentDidMount = () => {
-        document.title = "Fabric Manager 联盟管理"
+        document.title = "Fabric Manager "+this.props.intl.formatMessage({id:'consortium_manage'});
         let that = this;
         var headers = new Headers();
     
@@ -46,5 +47,5 @@ class Consortium extends React.Component {
     }
 }
 
-export default Consortium;
+export default injectIntl(Consortium);
 

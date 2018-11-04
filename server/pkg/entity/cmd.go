@@ -61,11 +61,11 @@ func ExecPeer(cmdInfo map[string]string) string {
 	cache := util.Caches.Get(cacheNodeName)
 
 	if cache != nil && cmd == "NODE_START" {
-		return "节点已经启动"
+		return "node_already_run"
 	} else if cache == nil && cmd == "NODE_STOP" {
-		return "节点已经停止"
+		return "node_already_stop"
 	} else if cache == nil && cmd != "NODE_START" && cmd != "NODE_STOP" {
-		return "请先启动当前节点"
+		return "node_must_run"
 	}
 	ordererCacheNodeName := orderers + "." + ordererName
 	orderCache := util.Caches.Get(ordererCacheNodeName)
@@ -84,7 +84,7 @@ func ExecPeer(cmdInfo map[string]string) string {
 			}
 		}
 		util.Caches.Delete(cacheNodeName)
-		return "节点停止成功"
+		return "node_stop_ok"
 	case "CHANNEL_LIST":
 		cmd := exec.Command(peerBin, "channel", "list")
 		return run(true, ALLINFO, cmd, peerPath)
@@ -110,21 +110,21 @@ func ExecPeer(cmdInfo map[string]string) string {
 		return msg
 	case "CHAINCODE_INIT":
 		if orderCache == nil {
-			return "请先启动orderer节点【" + ordererName + "】"
+			return "desc_3"+"|" + ordererName
 		}
 		cmd := exec.Command(peerBin, "chaincode", "instantiate", "-n", name, "-v", version, "-c", json, "-C", channelId, "-o", ordererEndpoint)
 		msg := run(true, ALLINFO, cmd, peerPath)
 		return msg
 	case "CHAINCODE_INVOKE":
 		if orderCache == nil {
-			return "请先启动orderer节点【" + ordererName + "】"
+			return "desc_3"+"|" + ordererName
 		}
 		cmd := exec.Command(peerBin, "chaincode", "invoke", "-n", name, "-c", json, "-C", channelId, "-o", ordererEndpoint)
 		msg := run(true, ALLINFO, cmd, peerPath)
 		return msg
 	case "CHAINCODE_QUERY":
 		if orderCache == nil {
-			return "请先启动orderer节点【" + ordererName + "】"
+			return "desc_3"+"|" + ordererName
 		}
 		cmd := exec.Command(peerBin, "chaincode", "query", "-n", name, "-c", json, "-C", channelId, "-o", ordererEndpoint)
 		msg := run(true, ALLINFO, cmd, peerPath)
@@ -143,7 +143,7 @@ func ExecOrderer(cmdInfo map[string]string) string {
 		case "NODE_START":
 			cache := util.Caches.Get(cacheNodeName)
 			if cache != nil {
-				return "节点已经启动"
+				return "node_already_run"
 			}
 			
 			cmd := exec.Command(ordererBin, "start")
@@ -152,7 +152,7 @@ func ExecOrderer(cmdInfo map[string]string) string {
 		case "NODE_STOP":
 			cache := util.Caches.Get(cacheNodeName)
 			if cache == nil {
-				return "节点已经停止"
+				return "node_already_stop"
 			}
 			v := cache.Value
 			if _, ok := v.(*exec.Cmd); ok {
@@ -162,11 +162,11 @@ func ExecOrderer(cmdInfo map[string]string) string {
 				}
 			}
 			util.Caches.Delete(cacheNodeName)
-			return "节点停止成功"
+			return "node_stop_ok"
 		case "SEEK":
 			cache := util.Caches.Get(cacheNodeName)
 			if cache == nil {
-				return "请先启动当前节点"
+				return "node_must_run"
 			}
 			return Seek(cmdInfo)
 	}
@@ -186,11 +186,11 @@ func ExecChainCode(cmdInfo map[string]string) string {
 	case "NODE_START":
 		cache := util.Caches.Get(peerCacheNodeName)
 		if cache == nil {
-			return "请先启动当前Peer节点:" + peerNodeName
+			return "desc_4"+"|" + peerNodeName
 		}
 		cache = util.Caches.Get(cacheNodeName)
 		if cache != nil {
-			return "节点已经启动"
+			return "node_already_run"
 		}
 		path = filepath.Join(os.Getenv("GOPATH"), "src", path)
 		cmd := exec.Command(path)
@@ -210,7 +210,7 @@ func ExecChainCode(cmdInfo map[string]string) string {
 	case "NODE_STOP":
 		cache := util.Caches.Get(cacheNodeName)
 		if cache == nil {
-			return "节点已经停止"
+			return "node_already_stop"
 		}
 		v := cache.Value
 		util.Caches.Delete(cacheNodeName)
@@ -264,7 +264,7 @@ func run(isSycn bool, outType int, cmd *exec.Cmd, config string) string {
 	} else if outType == ERRINFO {
 		return errStr
 	}
-	return fmt.Sprintf("环境变量:%s\n命令:%s\n执行完成\n\n\n%s\n\n\n%s", fabricCFGPath, strings.Join(cmd.Args, " "), errStr, outStr)
+	return fmt.Sprintf("Environment:%s\nCommand:%s\n\n\n%s\n\n\n%s", fabricCFGPath, strings.Join(cmd.Args, " "), errStr, outStr)
 }
 
 func Seek(cmdInfo map[string]string) string {

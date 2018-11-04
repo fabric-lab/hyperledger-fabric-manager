@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import Form from "react-jsonschema-form";
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import { injectIntl,defineMessages  } from 'react-intl';
 
 const styles = theme => ({
     button: {
@@ -17,13 +18,24 @@ class jsonForm extends React.Component {
     }
 
     render() {
-        const { classes,schema, uiSchema, fields, formContext, formData, handleForm, formMode,widgets } = this.props;
+        const { classes,schema, uiSchema, fields, formContext, formData, handleForm, formMode,widgets,intl } = this.props;
+        let values = {};
+        Object.keys(schema.properties).forEach(function (key) {
+            let property = schema.properties[key];
+            let title = property.title;
+            values[key] ={id:title};
+        });
+        const messages = defineMessages(values);
+        Object.keys(schema.properties).forEach(function (key) {
+            let property = schema.properties[key];
+             property.title = intl.formatMessage({id:messages[key].id});
+        });
         let bt = (<div>
             <Button className={classes.button} variant="raised" color="primary" type="submit" >
-                提交
+                 {intl.formatMessage({id:"submit"})}
             </Button>
             <Button className={classes.button} variant="raised" color="primary" onClick={() => this.props.history.goBack()} >
-                返回
+                {intl.formatMessage({id:"back"})}
             </Button>
         </div>
      
@@ -31,7 +43,7 @@ class jsonForm extends React.Component {
         if (formMode == "view") {
             bt = (<div>
                 <Button variant="raised" color="primary" onClick={() => this.props.history.goBack()} >
-                    返回
+                 {intl.formatMessage({id:"back"})}
                 </Button>
             </div>
             )
@@ -44,4 +56,4 @@ class jsonForm extends React.Component {
     }
 }
 
-export default withStyles(styles)(jsonForm);
+export default withStyles(styles)(injectIntl(jsonForm));

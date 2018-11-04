@@ -6,6 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
+import { injectIntl  } from 'react-intl';
 
 
 
@@ -39,8 +40,9 @@ class CertCard extends React.Component {
     }
 
     render() {
-       
+        const {intl} = this.props;
         const { activeTab } = this.state;
+
         let that = this;
         const handleFormSubmit = ({formData}) => {
             var url = 'api/certs';
@@ -69,7 +71,7 @@ class CertCard extends React.Component {
                         <div className='col-sm-1    '/>
                         <div className='col-sm-10    '>
                             <div className='panel panel-default'>
-                                <div className='panel-heading'>查看证书</div>
+                                <div className='panel-heading'> {intl.formatMessage({id:"view"}) }</div>
                                 <div className='panel-body'>
                                    
                                     <JsonForm widgets={widgets} schema={pemSchema} uiSchema={uiPemSchema} handleForm={()=>this.props.history.goBack()}   formData={this.state.formData} formMode="view" history={this.props.history}  />
@@ -84,5 +86,5 @@ class CertCard extends React.Component {
     }
 }
 
-export default CertCard;
+export default injectIntl(CertCard);
 

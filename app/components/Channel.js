@@ -1,5 +1,6 @@
 import React from 'react';
 import ChannelTable from './ChannelTable';
+import { injectIntl  } from 'react-intl';
 
 
 class Channel extends React.Component {
@@ -17,7 +18,7 @@ class Channel extends React.Component {
     }
 
     componentDidMount = () => {
-        document.title = "Fabric Manager 通道管理"
+        document.title = "Fabric Manager "+this.props.intl.formatMessage({id:'channel_manage'})
         let that = this;
     
         var url = 'api/entity/channels';
@@ -45,5 +46,5 @@ class Channel extends React.Component {
     }
 }
 
-export default Channel;
+export default injectIntl(Channel);
 

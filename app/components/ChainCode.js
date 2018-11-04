@@ -1,5 +1,6 @@
 import React from 'react';
 import ChainCodeTable from './ChainCodeTable';
+import { injectIntl  } from 'react-intl';
 
 
 class ChainCode extends React.Component {
@@ -17,7 +18,8 @@ class ChainCode extends React.Component {
     }
 
     componentDidMount = () => {
-        document.title = "Fabric Manager 链码管理"
+        document.title = "Fabric Manager "+this.props.intl.formatMessage({id:'chaincode_manage'});
+
         let that = this;
     
         var url = 'api/entity/chaincodes';
@@ -45,5 +47,5 @@ class ChainCode extends React.Component {
     }
 }
 
-export default ChainCode;
+export default injectIntl(ChainCode);
 

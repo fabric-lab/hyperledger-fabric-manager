@@ -21,12 +21,14 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
+import { injectIntl  } from 'react-intl';
+
 
 const columnData = [
-  { id: 'Name', numeric: true, disablePadding: false, label: 'MSP名称' },
-  { id: 'Path', numeric: true, disablePadding: false, label: '路径' },
-  { id: 'Type', numeric: true, disablePadding: false, label: '节点类型' },
-  { id: 'Role', numeric: true, disablePadding: false, label: '角色' }
+  { id: 'Name', numeric: true, disablePadding: false, label: 'msp_name' },
+  { id: 'Path', numeric: true, disablePadding: false, label: 'path' },
+  { id: 'Type', numeric: true, disablePadding: false, label: 'node_type' },
+  { id: 'Role', numeric: true, disablePadding: false, label: 'role' }
 ];
 
 

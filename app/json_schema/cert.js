@@ -51,11 +51,11 @@ const nameSchema = {
     properties: {
       Key:{
         type:"string",
-        title:"密钥"
+        title:"keys"
       },
       Cert:{
         type:"string",
-        title:"证书"
+        title:"certificate"
       },
 
      

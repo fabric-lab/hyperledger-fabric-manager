@@ -4,23 +4,23 @@ const organizationSchema = {
     properties: {
       Country: {
         type:"string",
-        title:"国家"
+        title:"country"
       },
       Province:{
         type:"string",
-        title:"省份"
+        title:"province"
       },
       Locality:{
         type:"string",
-        title:"城市"
+        title:"locality"
       },
       Organization:{
         type:"string",
-        title:"单位名称"
+        title:"organization"
       },
       CommonName:{
         type:"string",
-        title:"公用名称"
+        title:"common_name"
       }
     }
 

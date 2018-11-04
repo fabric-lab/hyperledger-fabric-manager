@@ -7,6 +7,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { injectIntl  } from 'react-intl';
+
 
 const styles = {
   card: {
@@ -39,28 +41,27 @@ class Home extends React.Component {
 
 
   render() {
-    const { classes } = this.props;
+    const { classes,intl } = this.props;
     const bull = <span className={classes.bullet}>•</span>;
 
     return (
       <div className='container'>
-        <h3 className='text-center'>超级账本管理端</h3>
+        <h3 className='text-center'>{intl.formatMessage({id:'desc_15'})}</h3>
         <div className={'row ' + classes.row}>
           <Card className={classes.card}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary">
-                项目简介
-                </Typography>
-
-              <Typography className={classes.pos} color="textSecondary">
-                1 学习超级账本(hyperledger fabric) 入门必备工具。
+              {intl.formatMessage({id:'desc_14'})} 
                 </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                2 轻松搭建学习环境,无需使用docker容器。目前仅支持单机环境。
+              {intl.formatMessage({id:'desc_13'})}
                 </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                3 多平台支持 windows,liunx,mac。
+               {intl.formatMessage({id:'desc_12'})}
                 </Typography>
+              <Typography className={classes.pos} color="textSecondary">
+                {intl.formatMessage({id:'desc_11'})}
+              </Typography>
             </CardContent>
           </Card>
         </div>
@@ -68,20 +69,20 @@ class Home extends React.Component {
           <Card className={classes.card}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary">
-                当前功能
+              {intl.formatMessage({id:'desc_10'})}
                 </Typography>
 
               <Typography className={classes.pos} color="textSecondary">
-                1 组织管理 MSP管理 证书管理 联盟管理 通道管理
+                {intl.formatMessage({id:'desc_6'})}
+              </Typography>
+              <Typography className={classes.pos} color="textSecondary">
+              {intl.formatMessage({id:'desc_7'})}
                 </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                2 链码管理 添加链码 启动链码 停止链码
+              {intl.formatMessage({id:'desc_8'})}
                 </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                3 Orderer管理 启动节点 停止节点 查看区块
-                </Typography>
-              <Typography className={classes.pos} color="textSecondary">
-                4 Peer管理 启动节点 停止节点 通道清单 加入通道 获取通道信息 安装链码 链码清单 初始化链码 调用链码 查询链码
+              {intl.formatMessage({id:'desc_9'})}
                 </Typography>
             </CardContent>
           </Card>
@@ -95,4 +96,4 @@ Home.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Home);
+export default withStyles(styles)(injectIntl(Home));

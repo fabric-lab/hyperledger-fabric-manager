@@ -19,10 +19,9 @@ import Channel from './Channel';
 import ChannelCard from './ChannelCard';
 import ChainCode from './ChainCode';
 import ChainCodeCard from './ChainCodeCard';
-import ChainCodeConsoleCard from './ChainCodeConsoleCard';
 import OrdererConsoleCard from './OrdererConsoleCard';
 import PeerConsoleCard from './PeerConsoleCard'
-import ChannelConsoleCard from './ChannelConsoleCard'
+
 
 
 class App extends React.Component {
@@ -47,9 +46,6 @@ class App extends React.Component {
                 <Route path='/channelcard/:data' component={ChannelCard} />
                 <Route path='/chaincode' component={ChainCode} />
                 <Route path='/chaincodecard/:data' component={ChainCodeCard} />
-                <Route path='/chainCodeconsolecard/:data' component={ChainCodeConsoleCard} />
-                
-                <Route path='/channelConsoleCard/:data' component={ChannelConsoleCard} />
                 <Route path='/ordererconsolecard/:data' component={OrdererConsoleCard} />
                 <Route path='/peerconsolecard/:data' component={PeerConsoleCard} />
          </Switch>

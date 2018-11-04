@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import JsonForm from './JsonForm';
 import {schema,uiSchema,formData} from '../json_schema/channel'
+import { injectIntl  } from 'react-intl';
 
 
 class ChannelCard extends React.Component {
@@ -67,6 +68,8 @@ class ChannelCard extends React.Component {
     }
 
     render() {
+        const {intl } = this.props;
+
         let that = this;
         const handleFormSubmit = ({formData}) => {
             // formData.OrderName = this.props.location.state.OrderName;
@@ -93,7 +96,7 @@ class ChannelCard extends React.Component {
                         <div className='col-sm-3    '/>
                         <div className='col-sm-6    '>
                             <div className='panel panel-default'>
-                                <div className='panel-heading'>{this.state.formMode=="view"?"查看通道":"添加通道"}</div>
+                                <div className='panel-heading'>{this.state.formMode=="view"?intl.formatMessage({id:'view'}):intl.formatMessage({id:'add_channel'}) }</div>
                                 <div className='panel-body'>
                                { this.state.isInit && <JsonForm schema={this.state.schema} uiSchema={uiSchema} handleForm={handleFormSubmit} formData={this.state.formData} formMode={this.state.formMode} history={this.props.history}/>}
                                 </div>
@@ -108,5 +111,5 @@ class ChannelCard extends React.Component {
     }
 }
 
-export default ChannelCard;
+export default injectIntl(ChannelCard);
 

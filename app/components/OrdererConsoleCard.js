@@ -12,7 +12,8 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import ReactJson from 'react-json-view';
-
+import { injectIntl  } from 'react-intl';
+import {msgToObj} from '../util'
 
 const styles = theme => ({
     button: {
@@ -54,7 +55,7 @@ class OrdererConsoleCard extends React.Component {
         this.state = {
             cmd: "NODE_START",
             log: "",
-            state: "",
+            state: "stop",
             nodeName: "",
             loading: false,
             channelId:"system-channel",
@@ -124,7 +125,7 @@ class OrdererConsoleCard extends React.Component {
             data.ChannelId = this.state.channelId;
             data.Seek = this.state.blockNum;
         }
-        that.setState({ loading: true, log: "运行中......." });
+        that.setState({ loading: true, log: this.props.intl.formatMessage({id:'running'})} );
         var url = `api/entity/orderers/${this.state.nodeName}/cmd`;
         fetch(url, {
             method: 'put',
@@ -132,7 +133,9 @@ class OrdererConsoleCard extends React.Component {
         }).then(function (response) {
             return response.json()
         }).then(function (data) {
-            that.setState({ log: data.msg, state: data.state, loading: false });
+            let msgObj = msgToObj(data.msg)
+            let msg = that.props.intl.formatMessage(msgObj[0],msgObj[1]);
+            that.setState({ log: msg, state: data.state, loading: false });
         }).catch(function (e) {
             console.log(e);
         });
@@ -141,7 +144,7 @@ class OrdererConsoleCard extends React.Component {
 
     render() {
         let that = this;
-        const { classes } = this.props;
+        const { classes,intl } = this.props;
         const { cmd, log, nodeName, state,channelId,blockNum,channels } = this.state;
         let items = [];
         items.push(<MenuItem value="system-channel" key="system-channel" >  system-channel  </MenuItem>)
@@ -155,30 +158,30 @@ class OrdererConsoleCard extends React.Component {
                 <div >
                     <div className='col-sm-3 '>
                         <div className='panel panel-default'>
-                            <div className='panel-heading'>{nodeName} {state}</div>
+                            <div className='panel-heading'>{nodeName} {intl.formatMessage({id:state})}</div>
                             <div className='panel-body'>
                                 <Select
                                     className={classes.select}
                                     value={cmd}
                                     onChange={this.handleChange("cmd")}
                                 >
-                                    <MenuItem value="NODE_START" key={1} >  启动节点  </MenuItem>
-                                    <MenuItem value="NODE_STOP" key={2} >  停止节点  </MenuItem>
-                                    <MenuItem value="SEEK" key={3} >  查看区块  </MenuItem>
+                                    <MenuItem value="NODE_START" key={1} >  {intl.formatMessage({id:'run_node'})}  </MenuItem>
+                                    <MenuItem value="NODE_STOP" key={2} >  {intl.formatMessage({id:'stop_node'})}   </MenuItem>
+                                    <MenuItem value="SEEK" key={3} >  {intl.formatMessage({id:'view_block'})}  </MenuItem>
                                 </Select>
                                 {
                                     cmd === "SEEK" && <Select  className={classes.select} value={channelId} onChange={this.handleChange("channelId")}> {items} </Select> 
                                 }
                                 {
-                                    cmd === "SEEK" && <TextField id="blockNum" onChange={this.handleChange("blockNum")} label="区块数" margin="normal" value={blockNum} className={classes.textField} required />
+                                    cmd === "SEEK" && <TextField id="blockNum" onChange={this.handleChange("blockNum")} label= {intl.formatMessage({id:'block_num'})} margin="normal" value={blockNum} className={classes.textField} required />
                                 }
                                 {
-                                    cmd==="SEEK"  && <Typography className={classes.textField} >最旧区块:-2 最新区块:-1 指定区块数:>=0</Typography>
+                                    cmd==="SEEK"  && <Typography className={classes.textField} >{intl.formatMessage({id:'desc_1'})}</Typography>
                                 }
                                 
                                 <Button variant="raised" color="primary" className={classes.button} onClick={this.execCmd.bind(this)} >
-                                    执行命令
-                                    </Button>
+                                    {intl.formatMessage({id:'run_cmd'})}
+                                </Button>
                             </div>
                         </div>
 
@@ -186,7 +189,7 @@ class OrdererConsoleCard extends React.Component {
                     <div className='col-sm-8    '>
                         <div className={'panel panel-default '+classes.panel}  >
                             {this.state.loading && <LinearProgress />}
-                            <div className='panel-heading'>日志</div>
+                            <div className='panel-heading'>{intl.formatMessage({id:'log'})}</div>
                             <div className='panel-body'>
                                 {!isJson && <TextField rowsMax="100" margin="normal" className={classes.textField} value={log} multiline={true} />}
                                 {isJson && <ReactJson src={json} />}
@@ -207,6 +210,6 @@ OrdererConsoleCard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(OrdererConsoleCard);
+export default withStyles(styles)(injectIntl(OrdererConsoleCard));
 
 

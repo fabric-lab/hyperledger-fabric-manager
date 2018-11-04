@@ -22,14 +22,15 @@ import Icon from '@material-ui/core/Icon';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { injectIntl  } from 'react-intl';
 
 
 const columnData = [
-  { id: 'Name', numeric: true, disablePadding: false, label: '通道名称(ID)' },
-  { id: 'Consortium', numeric: true, disablePadding: false, label: '联盟' },
-  { id: 'OrdererName', numeric: true, disablePadding: false, label: 'Order节点' },
-  { id: 'State', numeric: true, disablePadding: false, label: '是否启用' },
-  { id: 'Desc', numeric: true, disablePadding: false, label: '通道描述' },
+  { id: 'Name', numeric: true, disablePadding: false, label: 'channel_name' },
+  { id: 'Consortium', numeric: true, disablePadding: false, label: 'consortium' },
+  { id: 'OrdererName', numeric: true, disablePadding: false, label: 'orderer_name' },
+  { id: 'State', numeric: true, disablePadding: false, label: 'enabled' },
+  { id: 'Desc', numeric: true, disablePadding: false, label: 'channel_desc' },
   
 ];
 
@@ -86,7 +87,6 @@ class ChannelTable extends React.Component {
   };
 
   handleCmdClick = (event, key) => {
-
     let that = this;
     let data = {}
     data.Cmd = "CHANNEL_CREATE";
@@ -113,7 +113,7 @@ class ChannelTable extends React.Component {
           that.props.callback({ data: newDatas, selected: 0 });
        }else{
           that.setState({ loading: false });
-          alert("启用通道失败，请确认 1.对应Order节点是否已经启动。 2.已经存在同名通道");
+          alert(that.props.intl.formatMessage({id:'desc_5'}));
        }
        
     }).catch(function(e) {
@@ -159,12 +159,12 @@ class ChannelTable extends React.Component {
 
 
   render() {
-    const { classes, history, data } = this.props;
+    const { classes, history, data,intl } = this.props;
     const { order, orderBy } = this.state;
-    const tooltip = (<Tooltip title="添加通道">
+    const tooltip = (<Tooltip title={intl.formatMessage({id:'add_channel'})}>
       <Button variant="raised" color="primary" className={classes.button} onClick={this.addConsortium}>
         <AddIcon className={classes.leftIcon} />
-        添加通道
+        {intl.formatMessage({id:'add_channel'})}
     </Button>
     </Tooltip>
     )
@@ -173,7 +173,7 @@ class ChannelTable extends React.Component {
         <div className='row flipInX'>
           <Paper className={classes.root}>
             {this.state.loading && <LinearProgress />}
-            <EnhancedTableToolbar title="通道" tooltip={tooltip} />
+            <EnhancedTableToolbar title={intl.formatMessage({id:'channel'})} tooltip={tooltip} />
             <div className={classes.tableWrapper}>
               <Table className={classes.table} aria-labelledby="tableTitle">
                 <EnhancedTableHead
@@ -191,12 +191,12 @@ class ChannelTable extends React.Component {
                         <TableCell numeric>{n.Name}</TableCell>
                         <TableCell numeric>{n.Consortium}</TableCell>
                         <TableCell numeric>{n.OrdererName}</TableCell>
-                        <TableCell numeric>{n.State=="enable"?"已启用":"未启用"}</TableCell>
+                        <TableCell numeric>{n.State=="enable"? intl.formatMessage({id:'able'}): intl.formatMessage({id:'disable'})}</TableCell>
                         <TableCell numeric>{n.Desc}</TableCell>
                         <TableCell>
-                          {n.State!="enable" && <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.Name)} >  删除 </Button>}
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name)} >  查看 </Button>
-                          {n.State!="enable" &&<Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleCmdClick(event, n.Name)} >  启用通道 </Button>}
+                          {n.State!="enable" && <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.Name)} >  {intl.formatMessage({id:'delete'})} </Button>}
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name)} >  {intl.formatMessage({id:'view'})} </Button>
+                          {n.State!="enable" &&<Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleCmdClick(event, n.Name)} >{intl.formatMessage({id:'enable_channel'})} </Button>}
                         </TableCell>
                       </TableRow>
                     );
@@ -218,4 +218,4 @@ ChannelTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ChannelTable);
+export default withStyles(styles)(injectIntl(ChannelTable));

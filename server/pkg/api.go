@@ -54,10 +54,10 @@ func GetNodeState(c *gin.Context) {
 	id := c.Param("id")
 	cache := util.Caches.Get(en + "." + id)
 	if cache != nil {
-		c.JSON(200, gin.H{"state": "运行中"})
+		c.JSON(200, gin.H{"state": "running"})
 		return
 	}
-	c.JSON(200, gin.H{"state": "未运行"})
+	c.JSON(200, gin.H{"state": "stop"})
 	return
 }
 
@@ -117,9 +117,9 @@ func ExecCMD(c *gin.Context) {
 		res = a.Exec(cmd)
 	}
 	cache := util.Caches.Get(en + "." + id)
-	state := "未运行"
+	state := "stop"
 	if cache != nil {
-		state = "运行中"
+		state = "running"
 	}
 	c.JSON(200, gin.H{"msg": res, "state": state})
 }
