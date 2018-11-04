@@ -43,7 +43,7 @@ func configConsortiumOrgs(path string, cName string) ([]*profileConfig.Organizat
 		oname := strings.SplitN(v, ".", 2)[1]
 		peer,_:= getPeerByLocalMSPId(v)
 		if(peer ==nil){
-			return nil,errors.New("请先添加组织【"+oname+"】的Peer节点")
+			return nil,errors.New("desc_2"+"|"+oname)
 		}
 		
 		msp, err := getMspByName(v)

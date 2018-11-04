@@ -18,15 +18,16 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
+import { injectIntl  } from 'react-intl';
 
 
 
 const columnData = [
-  { id: 'Country', numeric: true, disablePadding: false, label: '国家' },
-  { id: 'Province', numeric: true, disablePadding: false, label: '省份' },
-  { id: 'Locality', numeric: true, disablePadding: false, label: '城市' },
-  { id: 'Organization', numeric: true, disablePadding: false, label: '单位名称' },
-  { id: 'CommonName', numeric: true, disablePadding: false, label: '公用名称' }
+  { id: 'Country', numeric: true, disablePadding: false, label: 'country' },
+  { id: 'Province', numeric: true, disablePadding: false, label: 'province' },
+  { id: 'Locality', numeric: true, disablePadding: false, label: 'locality' },
+  { id: 'Organization', numeric: true, disablePadding: false, label: 'organization' },
+  { id: 'CommonName', numeric: true, disablePadding: false, label:'common_name' }
 ];
 
 const styles = theme => ({
@@ -114,12 +115,12 @@ class OrganizationTable extends React.Component {
 
 
   render() {
-    const { classes, history, data } = this.props;
+    const { classes, history, data,intl } = this.props;
     const { order, orderBy, selected } = this.state;
-    const tooltip = (<Tooltip title="添加组织">
+    const tooltip = (<Tooltip title={intl.formatMessage({id:"add_organization"}) }>
       <Button variant="raised" color="primary" className={classes.button} onClick={this.addOrganization}>
         <AddIcon className={classes.leftIcon} />
-        添加组织
+        {intl.formatMessage({id:"add_organization"}) }
       </Button>
     </Tooltip>
     )
@@ -128,7 +129,7 @@ class OrganizationTable extends React.Component {
       <div className='container'>
         <div className='row flipInX'>
           <Paper className={classes.root}>
-            <EnhancedTableToolbar title="组织" tooltip={tooltip} />
+            <EnhancedTableToolbar title={intl.formatMessage({id:"organizations"}) } tooltip={tooltip} />
             <div className={classes.tableWrapper}>
               <Table className={classes.table} aria-labelledby="tableTitle">
                 <EnhancedTableHead
@@ -152,8 +153,8 @@ class OrganizationTable extends React.Component {
                         <TableCell numeric>{n.Organization}</TableCell>
                         <TableCell numeric>{n.CommonName}</TableCell>
                         <TableCell >
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.CommonName)} >  删 除 </Button>
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.CommonName)} >  查 看 </Button>
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.CommonName)} >   {intl.formatMessage({id:"delete"}) } </Button>
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.CommonName)} >  {intl.formatMessage({id:"view"}) } </Button>
                         </TableCell>
                       </TableRow>
                     );
@@ -175,4 +176,4 @@ OrganizationTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(OrganizationTable);
+export default withStyles(styles)(injectIntl(OrganizationTable));

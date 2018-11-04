@@ -6,34 +6,34 @@ const schema = {
         Name:{
           type: "string",
           default: "OrdererNode1",
-          title:"节点名称"
+          title:"node_name"
         },
         OrdererType: {
           type: "string",
           enum: ["solo"],
           default: "solo",
-          title:"节点类型"
+          title:"node_type"
         },
         LedgerType: {
           type: "string",
           enum: ["file", "json", "ram"],
           default: "file",
-          title:"账本类型"
+          title:"ledger_type"
         },
         ListenAddress:{
           type: "string",
           default: "127.0.0.1",
-          title:"IP地址"
+          title:"ip_address"
         },
         ListenPort:{
           type: "number",
           default: 7050,
-          title:"端口"
+          title:"port"
         },
         LocalMSPID:{
           type: "string",
           enum: [],
-          title: "MSP 名称"
+          title: "msp_name"
         },
         Consortiums:{
           type:"array",
@@ -42,7 +42,7 @@ const schema = {
             type: "string",
           },
           uniqueItems: true,
-          title:"联盟"
+          title:"consortiums"
         }
 
       }

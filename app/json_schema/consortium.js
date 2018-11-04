@@ -4,21 +4,21 @@ const schema = {
     properties: {
       Name: {
         type:"string",
-        title:"联盟名称",
+        title:"consortium_name",
       },
       Desc: {
         type:"string",
-        title:"联盟描述",
+        title:"consortium_desc",
       },
       Type: {
         type: "string",
         enum: ["application"],
         default: "application",
-        title:"联盟类型",
+        title:"consortium_type",
       },
       MspNames:{
         type:"array",
-        title:"联盟中的MSP",
+        title:"consortium_msps",
         items: {
           enum: [],
           type: "string",

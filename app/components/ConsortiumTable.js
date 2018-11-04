@@ -21,13 +21,14 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
+import { injectIntl  } from 'react-intl';
 
 
 
 const columnData = [
-  { id: 'Name', numeric: true, disablePadding: false, label: '联盟名称' },
-  { id: 'Desc', numeric: true, disablePadding: false, label: '联盟描述' },
-  { id: 'MspNames', numeric: true, disablePadding: false, label: '联盟中的MSP' },
+  { id: 'Name', numeric: true, disablePadding: false, label: 'consortium_name' },
+  { id: 'Desc', numeric: true, disablePadding: false, label: 'consortium_desc' },
+  { id: 'MspNames', numeric: true, disablePadding: false, label: 'consortium_msps' },
 ];
 
 
@@ -119,12 +120,12 @@ class ConsortiumTable extends React.Component {
 
 
   render() {
-    const { classes, history, data } = this.props;
+    const { classes, history, data,intl } = this.props;
     const { order, orderBy } = this.state;
-    const tooltip = (<Tooltip title="添加联盟">
+    const tooltip = (<Tooltip title={intl.formatMessage({id:"add_consortium"}) }>
       <Button variant="raised" color="primary" className={classes.button} onClick={this.addConsortium}>
         <AddIcon className={classes.leftIcon} />
-        添加联盟
+        {intl.formatMessage({id:"add_consortium"}) }
     </Button>
     </Tooltip>
     )
@@ -132,7 +133,7 @@ class ConsortiumTable extends React.Component {
       <div className='container'>
         <div className='row flipInX'>
           <Paper className={classes.root}>
-            <EnhancedTableToolbar title="联盟" tooltip={tooltip} />
+            <EnhancedTableToolbar title={intl.formatMessage({id:"consortiums"}) } tooltip={tooltip} />
             <div className={classes.tableWrapper}>
               <Table className={classes.table} aria-labelledby="tableTitle">
                 <EnhancedTableHead
@@ -151,8 +152,8 @@ class ConsortiumTable extends React.Component {
                         <TableCell numeric>{n.Desc}</TableCell>
                         <TableCell numeric>{n.MspNames == null ? "" : n.MspNames.join()}</TableCell>
                         <TableCell>
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.Name)} >  删除 </Button>
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name)} >  查看 </Button>
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.Name)} >  {intl.formatMessage({id:"delete"}) } </Button>
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name)} >  {intl.formatMessage({id:"view"}) } </Button>
                         </TableCell>
                       </TableRow>
                     );
@@ -174,4 +175,4 @@ ConsortiumTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ConsortiumTable);
+export default withStyles(styles)(injectIntl(ConsortiumTable));

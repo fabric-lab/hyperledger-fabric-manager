@@ -1,5 +1,6 @@
 import React from 'react';
 import PeerTable from './PeerTable';
+import { injectIntl  } from 'react-intl';
 
 
 class Peer extends React.Component {
@@ -17,7 +18,8 @@ class Peer extends React.Component {
     }
 
     componentDidMount = () => {
-        document.title = "Fabric Manager PEER管理"
+        document.title = "Fabric Manager "+this.props.intl.formatMessage({id:'peer_manage'});
+
         let that = this;
     
         var url = 'api/entity/peers';
@@ -45,5 +47,5 @@ class Peer extends React.Component {
     }
 }
 
-export default Peer;
+export default injectIntl(Peer);
 

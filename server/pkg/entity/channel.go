@@ -41,7 +41,7 @@ func (c *Channel) Exec(cmdInfo map[string]string) string {
 
 	str := ExecChannel(cmdInfo)
 
-	//根据输出判断是否启用成功，不准确，后期在修正
+	//check output if exist "Error:",not accuracy,to do next
 	index := strings.Index(str, "Error:")
 	if index == -1 {
 		c.State = "enable"

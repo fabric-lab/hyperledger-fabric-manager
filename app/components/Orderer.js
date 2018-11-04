@@ -1,5 +1,6 @@
 import React from 'react';
 import OrdererTable from './OrdererTable';
+import { injectIntl  } from 'react-intl';
 
 
 class Orderer extends React.Component {
@@ -17,7 +18,7 @@ class Orderer extends React.Component {
     }
 
     componentDidMount = () => {
-        document.title = "Fabric Manager ORDERER管理"
+        document.title = "Fabric Manager "+this.props.intl.formatMessage({id:'orderer_manage'});
         let that = this;
     
         var url = 'api/entity/orderers';
@@ -45,5 +46,5 @@ class Orderer extends React.Component {
     }
 }
 
-export default Orderer;
+export default injectIntl(Orderer);
 

@@ -2,6 +2,7 @@ import React from 'react';
 import OrganizationTable from './OrganizationTable';
 import CertTable from './CertTable';
 import MspTable from './MspTable';
+import { injectIntl  } from 'react-intl';
 
 
 
@@ -20,7 +21,7 @@ class Organization extends React.Component {
     }
 
     componentDidMount = () => {
-        document.title = "Fabric Manager 组织管理"
+        document.title = "Fabric Manager "+this.props.intl.formatMessage({id:'organization_manage'});
         let that = this;
         var headers = new Headers();
 
@@ -54,5 +55,5 @@ class Organization extends React.Component {
     }
 }
 
-export default Organization;
+export default injectIntl(Organization);
 
