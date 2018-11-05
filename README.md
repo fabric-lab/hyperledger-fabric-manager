@@ -1,7 +1,7 @@
-[ENGLISH](https://github.com/fabric-lab/fabric-manager/blob/master/README.md) | [中文版](https://github.com/fabric-lab/fabric-manager/blob/master/README-zh.md)
+[ENGLISH](https://github.com/fabric-lab/hyperledger-fabric-manager/blob/master/README.md) | [中文版](https://github.com/fabric-lab/hyperledger-fabric-manager/blob/master/README-zh.md)
 ## Releases
 
-- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/fabric-manager/releases/tag/V1.0.1) Only support Hyperledger Fabric 1.1
+- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.1) Only support Hyperledger Fabric 1.1
 
 
 ## What is this
@@ -23,7 +23,7 @@
        $ git clone https://github.com/fabric-lab/hyperledger-fabric-manager.git
  - 2 Frontend 
        
-       $ cd fabric-manager/app && npm install && gulp
+       $ cd hyperledger-fabric-manager/app && npm install && gulp
        
        $ [17:14:56] Using gulpfile ~/work_dir/gopath/src/github.com/fabric-lab/hyperledger-fabric-manager/app/gulpfile.js
        $ [17:14:56] Starting 'styles'...
