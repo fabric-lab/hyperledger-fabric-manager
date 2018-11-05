@@ -4,7 +4,7 @@
 - [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/fabric-manager/releases/tag/V1.0.1) Only support Hyperledger Fabric 1.1
 
 
-## What is Burrow
+## What is this
 - 1 Essential tool for you to start learning hyperledger fabric.
 - 2 User friendly building environment, docker container not needed. Single machine mode only.
 - 3 Cross-platform for windows,liunx,mac. 
