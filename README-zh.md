@@ -1,8 +1,8 @@
-[ENGLISH](https://github.com/fabric-lab/fabric-manager/blob/master/README.md) | [中文版](https://github.com/fabric-lab/fabric-manager/blob/master/README-zh.md)
+[ENGLISH](https://github.com/fabric-lab/hyperledger-fabric-manager/blob/master/README.md) | [中文版](https://github.com/fabric-lab/hyperledger-fabric-manager/blob/master/README-zh.md)
 
 ## 发布版本
 
-- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/fabric-manager/releases/tag/V1.0.0) 该版本仅支持fabric 1.1
+- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0) 该版本仅支持fabric 1.1
 ## 视频教程
 - [fabric manager bilibili 9分钟教程](https://www.bilibili.com/video/av33670267/)
 - [fabric manager baidu 9分钟教程](https://pan.baidu.com/s/1wSzHM3U6vNi2PxuZzSFYnQ)
@@ -23,12 +23,12 @@
           
        $ cd $GOPATH/src/github.com
        $ mkdir fabric-lab && cd fabric-lab
-       $ git clone https://github.com/fabric-lab/fabric-manager.git
+       $ git clone https://github.com/fabric-lab/hyperledger-fabric-manager.git
  - 2 前端环境
        
        $ cd fabric-manager/app && npm install && gulp
        
-       $ [17:14:56] Using gulpfile ~/work_dir/gopath/src/github.com/fabric-lab/fabric-manager/app/gulpfile.js
+       $ [17:14:56] Using gulpfile ~/work_dir/gopath/src/github.com/fabric-lab/hyperledger-fabric-manager/app/gulpfile.js
        $ [17:14:56] Starting 'styles'...
        $ [17:14:56] Starting 'vendor'...
        $ [17:14:56] Starting 'browserify-vendor'...
@@ -39,7 +39,7 @@
        $ [17:15:00] Finished 'browserify-vendor' after 3.24 s
        $ [17:15:00] Starting 'browserify-watch'...
        
- - 3 编译fabric 1.1的orderer组件和peer组件，放到server/bin/linux(windows,drawin)/amd64/目录下，也可以直接从[release](https://github.com/fabric-lab/fabric-manager/releases/tag/V1.0.0)中获取编译好的程序。
+ - 3 编译fabric 1.1的orderer组件和peer组件，放到server/bin/linux(windows,drawin)/amd64/目录下，也可以直接从[release](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0)中获取编译好的程序。
        
        bin/
          └── linux
