@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/fabric-lab/fabric-manager/server/pkg"
-	"github.com/fabric-lab/fabric-manager/server/pkg/entity"
-	"github.com/fabric-lab/fabric-manager/server/pkg/store"
-	"github.com/fabric-lab/fabric-manager/server/pkg/util"
+	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg"
+	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/entity"
+	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/store"
+	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/util"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )

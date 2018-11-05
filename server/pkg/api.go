@@ -2,9 +2,9 @@ package pkg
 
 import (
 	"encoding/json"
-	"github.com/fabric-lab/fabric-manager/server/pkg/entity"
-	"github.com/fabric-lab/fabric-manager/server/pkg/store"
-	"github.com/fabric-lab/fabric-manager/server/pkg/util"
+	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/entity"
+	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/store"
+	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/util"
 	"github.com/gin-gonic/gin"
 	"strings"
 )

@@ -1,5 +1,5 @@
 {
-  "name": "Fabric Manager",
+  "name": "fabric-manager",
   "dependencies": {
     "jquery": "^2.1.4",
     "bootstrap": "^3.3.5",

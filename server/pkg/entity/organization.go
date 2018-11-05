@@ -16,7 +16,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/fabric-lab/fabric-manager/server/pkg/store"
+	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/store"
 )
 
 type Organization struct {

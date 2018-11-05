@@ -2,8 +2,8 @@ package entity
 
 import (
 	"fmt"
-	"github.com/fabric-lab/fabric-manager/server/pkg/store"
-	"github.com/fabric-lab/fabric-manager/server/pkg/util"
+	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/store"
+	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/util"
 	profileConfig "github.com/hyperledger/fabric/common/tools/configtxgen/localconfig"
 	ordererConfig "github.com/hyperledger/fabric/orderer/common/localconfig"
 	yaml "gopkg.in/yaml.v2"
