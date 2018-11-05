@@ -26,7 +26,7 @@
        $ git clone https://github.com/fabric-lab/hyperledger-fabric-manager.git
  - 2 前端环境
        
-       $ cd fabric-manager/app && npm install && gulp
+       $ cd hyperledger-fabric-manager/app && npm install && gulp
        
        $ [17:14:56] Using gulpfile ~/work_dir/gopath/src/github.com/fabric-lab/hyperledger-fabric-manager/app/gulpfile.js
        $ [17:14:56] Starting 'styles'...
