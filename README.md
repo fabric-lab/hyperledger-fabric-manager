@@ -20,12 +20,12 @@
           
        $ cd $GOPATH/src/github.com
        $ mkdir fabric-lab && cd fabric-lab
-       $ git clone https://github.com/fabric-lab/fabric-manager.git
+       $ git clone https://github.com/fabric-lab/hyperledger-fabric-manager.git
  - 2 Frontend 
        
        $ cd fabric-manager/app && npm install && gulp
        
-       $ [17:14:56] Using gulpfile ~/work_dir/gopath/src/github.com/fabric-lab/fabric-manager/app/gulpfile.js
+       $ [17:14:56] Using gulpfile ~/work_dir/gopath/src/github.com/fabric-lab/hyperledger-fabric-manager/app/gulpfile.js
        $ [17:14:56] Starting 'styles'...
        $ [17:14:56] Starting 'vendor'...
        $ [17:14:56] Starting 'browserify-vendor'...
@@ -36,7 +36,7 @@
        $ [17:15:00] Finished 'browserify-vendor' after 3.24 s
        $ [17:15:00] Starting 'browserify-watch'...
        
- - 3 Compile orderer and peer of fabric 1.1，put in server/bin/linux(windows,drawin)/amd64/ directory，aslo can get binary from [release](https://github.com/fabric-lab/fabric-manager/releases/tag/V1.0.1)。
+ - 3 Compile orderer and peer of fabric 1.1，put in server/bin/linux(windows,drawin)/amd64/ directory，aslo can get binary from [release](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.1)。
        
        bin/
          └── linux
