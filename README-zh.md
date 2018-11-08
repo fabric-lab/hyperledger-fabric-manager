@@ -2,7 +2,7 @@
 
 ## 发布版本
 
-- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0) 该版本仅支持fabric 1.1
+- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0) 内置fabric 1.1组件
 ## 使用说明
 - 下载并解压[v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0)
 - 启动server程序
@@ -16,6 +16,7 @@
 - 1 学习超级账本(hyperledger fabric) 入门必备工具。
 - 2 轻松搭建学习环境,无需使用docker容器。目前仅支持单机环境。
 - 3 多平台支持 windows,liunx,mac。 
+- 4 支持hyperledger fabric 1.1,1.2,1.3版本
 
 ## 当前功能
 - 1 组织管理 MSP管理 证书管理 联盟管理 通道管理
