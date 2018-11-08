@@ -42,7 +42,7 @@
        $ [17:15:00] Finished 'browserify-vendor' after 3.24 s
        $ [17:15:00] Starting 'browserify-watch'...
        
- - 3 Compile orderer and peer of fabric 1.1，put in server/bin/linux(windows,drawin)/amd64/ directory，aslo can get binary from [release](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.1)。
+ - 3 Get Orderer and Peer binary from[hyperledger-fabric releases](https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric/hyperledger-fabric/)，put in server/bin/linux(windows,drawin)/amd64/ directory。
        
        bin/
          └── linux
