@@ -1,7 +1,7 @@
 [ENGLISH](https://github.com/fabric-lab/hyperledger-fabric-manager/blob/master/README.md) | [中文版](https://github.com/fabric-lab/hyperledger-fabric-manager/blob/master/README-zh.md)
 ## Releases
 
-- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.1) Only support Hyperledger Fabric 1.1
+- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.1) Embed Hyperledger Fabric 1.1 component
 
 ## How to use
 - Download and Extract [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.1)
@@ -13,6 +13,7 @@
 - 1 Essential tool for you to start learning hyperledger fabric.
 - 2 User friendly building environment, docker container not needed. Single machine mode only.
 - 3 Cross-platform for windows,liunx,mac. 
+- 4 Adapt for hyperledger fabric 1.1,1.2,1.3 
 
 ## Functionalities
 - 1 Organizations Manage,MSPs Auto Create,Certificates Manage,Consortiums Manage,Channels Manage.
