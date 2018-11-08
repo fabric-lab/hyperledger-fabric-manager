@@ -3,6 +3,11 @@
 
 - [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.1) Only support Hyperledger Fabric 1.1
 
+## How to use
+- Download and Extract [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.1)
+- Run server
+- Open http://localhost:8080
+
 
 ## What is this
 - 1 Essential tool for you to start learning hyperledger fabric.
@@ -21,7 +26,7 @@
        $ cd $GOPATH/src/github.com
        $ mkdir fabric-lab && cd fabric-lab
        $ git clone https://github.com/fabric-lab/hyperledger-fabric-manager.git
- - 2 Frontend 
+ - 2 Frontend ,depend on node.js,gulp,bower
        
        $ cd hyperledger-fabric-manager/app && npm install && gulp
        
