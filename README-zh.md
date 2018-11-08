@@ -45,7 +45,7 @@
        $ [17:15:00] Finished 'browserify-vendor' after 3.24 s
        $ [17:15:00] Starting 'browserify-watch'...
        
- - 3 编译fabric 1.1的orderer组件和peer组件，放到server/bin/linux(windows,drawin)/amd64/目录下，也可以直接从[release](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0)中获取编译好的程序。
+ - 3 从[hyperledger-fabric releases](https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric/hyperledger-fabric/)中获取对于平台的fabric Orderer组件和peer组件，放到server/bin/linux(windows,drawin)/amd64/目录下。
        
        bin/
          └── linux
