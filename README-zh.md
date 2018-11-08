@@ -3,6 +3,11 @@
 ## 发布版本
 
 - [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0) 该版本仅支持fabric 1.1
+## 使用说明
+- 下载并解压[v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0)
+- 启动server程序
+- 访问http://localhost:8080 
+
 ## 视频教程
 - [fabric manager bilibili 9分钟教程](https://www.bilibili.com/video/av33670267/)
 - [fabric manager baidu 9分钟教程](https://pan.baidu.com/s/1wSzHM3U6vNi2PxuZzSFYnQ)
@@ -24,7 +29,7 @@
        $ cd $GOPATH/src/github.com
        $ mkdir fabric-lab && cd fabric-lab
        $ git clone https://github.com/fabric-lab/hyperledger-fabric-manager.git
- - 2 前端环境
+ - 2 前端环境 ,预先安装node.js ,gulp,bower
        
        $ cd hyperledger-fabric-manager/app && npm install && gulp
        
