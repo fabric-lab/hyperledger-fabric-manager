@@ -3,31 +3,32 @@
 
 - [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.1) Embed Hyperledger Fabric 1.1 component
 
-## How to use
+## Get started
 - Download and Extract [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.1)
 - Run server
 - Open http://localhost:8080
 
 
-## What is this
+## Introduction
 - 1 Essential tool for you to start learning hyperledger fabric.
 - 2 User friendly building environment, docker container not needed. Single machine mode only.
 - 3 Cross-platform for windows,liunx,mac. 
 - 4 Adapt for hyperledger fabric 1.1,1.2,1.3 
 
-## Functionalities
+## Features
+  A few of the things you can do with hyperledger fabric manager:
 - 1 Organizations Manage,MSPs Auto Create,Certificates Manage,Consortiums Manage,Channels Manage.
 - 2 Add ChainCode,Enable Chaincode,Stop Chaincode.
 - 3 Orderers Manage,Run Orderer,Stop Orderer,View Block.
 - 4 Peers Manage, Run Peer, Stop Peer, List Channel, Join Channel, Get Channel Info, Install ChainCode, List ChainCode, Init ChainCode, Invoke ChainCode, Query Chaincode.
 
-## Develop environment for Ubuntu user
+## Develop  for Ubuntu user
  - 1 Clone the repository
           
        $ cd $GOPATH/src/github.com
        $ mkdir fabric-lab && cd fabric-lab
        $ git clone https://github.com/fabric-lab/hyperledger-fabric-manager.git
- - 2 Frontend ,depend on node.js,gulp,bower
+ - 2 Front-end ,depend on node.js,gulp,bower
        
        $ cd hyperledger-fabric-manager/app && npm install && gulp
        
@@ -49,7 +50,7 @@
              └── amd64
                  ├── orderer
                  └── peer
- - 4 Backend
+ - 4 Back-end
        
        $ cd ../server && glide create && glide get  
        $ go run main.go
