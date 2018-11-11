@@ -13,7 +13,7 @@
 - [fabric manager baidu 9分钟教程](https://pan.baidu.com/s/1wSzHM3U6vNi2PxuZzSFYnQ)
 
 ## 项目简介
-- 1 学习超级账本(hyperledger fabric) 入门必备工具。
+- 1 快速创建hyperledger fabric网络。
 - 2 轻松搭建学习环境,无需使用docker容器。目前仅支持单机环境。
 - 3 多平台支持 windows,liunx,mac。 
 - 4 支持hyperledger fabric 1.1,1.2,1.3版本
