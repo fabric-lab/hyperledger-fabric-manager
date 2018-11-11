@@ -10,13 +10,13 @@
 
 
 ## Introduction
-- 1 Essential tool for you to start learning hyperledger fabric.
-- 2 User friendly building environment, docker container not needed. Single machine mode only.
+- 1 Essential tool for you to create a hyperledger fabric network  and manage easily.
+- 2 User friendly building environment, docker container not needed. Single machine mode only now.
 - 3 Cross-platform for windows,liunx,mac. 
 - 4 Adapt for hyperledger fabric 1.1,1.2,1.3 
 
 ## Features
-  A few of the things you can do with hyperledger fabric manager:
+  A few of the things you can do with hyperledger fabric manage:
 - 1 Organizations Manage,MSPs Auto Create,Certificates Manage,Consortiums Manage,Channels Manage.
 - 2 Add ChainCode,Enable Chaincode,Stop Chaincode.
 - 3 Orderers Manage,Run Orderer,Stop Orderer,View Block.
