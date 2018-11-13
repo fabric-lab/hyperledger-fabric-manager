@@ -13,6 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import ReactJson from 'react-json-view';
 import { injectIntl  } from 'react-intl';
+import {msgToObj} from '../util'
 
 const styles = theme => ({
     button: {
@@ -196,7 +197,9 @@ class PeerConsoleCard extends React.Component {
         }).then(function (response) {
             return response.json();
         }).then(function (data) {
-            that.setState({ log: that.props.intl.formatMessage({id:data.msg}), state: data.state, loading: false });
+            let msgObj = msgToObj(data.msg)
+            let msg = that.props.intl.formatMessage(msgObj[0],msgObj[1]);
+            that.setState({ log: msg, state: data.state, loading: false });
         }).catch(function (e) {
             console.log(e);
         });

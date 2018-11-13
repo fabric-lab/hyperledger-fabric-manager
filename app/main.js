@@ -18,5 +18,7 @@ if(window.location.href.indexOf("zh_CN")!=-1){
      locale   = "zh"
      messages = zh_CN
 }
-
-ReactDOM.render( <IntlProvider locale={locale} messages={messages}><HashRouter>{routes}</HashRouter></IntlProvider>, document.getElementById('app'));
+const errorReporter = (error, locale, message) =>{ 
+    // custom error reporting code here
+}
+ReactDOM.render( <IntlProvider locale={locale} messages={messages} onError={errorReporter}><HashRouter>{routes}</HashRouter></IntlProvider>, document.getElementById('app'));

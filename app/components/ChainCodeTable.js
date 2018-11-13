@@ -23,7 +23,7 @@ import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { injectIntl  } from 'react-intl';
-
+import {msgToObj} from '../util'
 
 const columnData = [
   { id: 'Name', numeric: true, disablePadding: false, label: 'chaincode_name' },
@@ -152,7 +152,10 @@ class ChainCodeTable extends React.Component {
               that.props.callback({ data: newDatas });
           }else{
               that.setState({ loading: false });
-              alert(res.msg);
+              let msgObj = msgToObj(res.msg);
+              console.log(msgObj);
+              let msg = that.props.intl.formatMessage(msgObj[0],msgObj[1]);
+              alert(msg);
           }
         }).catch(function(e) {
             console.log(e);
