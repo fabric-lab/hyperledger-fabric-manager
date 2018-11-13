@@ -2,7 +2,7 @@
 
 ## 发布版本
 
-- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0) 该版本仅支持fabric 1.1
+- [v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0) 内置fabric 1.1组件
 ## 使用说明
 - 下载并解压[v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0)
 - 启动server程序
@@ -13,9 +13,10 @@
 - [fabric manager baidu 9分钟教程](https://pan.baidu.com/s/1wSzHM3U6vNi2PxuZzSFYnQ)
 
 ## 项目简介
-- 1 学习超级账本(hyperledger fabric) 入门必备工具。
+- 1 快速创建hyperledger fabric网络。
 - 2 轻松搭建学习环境,无需使用docker容器。目前仅支持单机环境。
 - 3 多平台支持 windows,liunx,mac。 
+- 4 支持hyperledger fabric 1.1,1.2,1.3版本
 
 ## 当前功能
 - 1 组织管理 MSP管理 证书管理 联盟管理 通道管理
@@ -44,7 +45,7 @@
        $ [17:15:00] Finished 'browserify-vendor' after 3.24 s
        $ [17:15:00] Starting 'browserify-watch'...
        
- - 3 编译fabric 1.1的orderer组件和peer组件，放到server/bin/linux(windows,drawin)/amd64/目录下，也可以直接从[release](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0)中获取编译好的程序。
+ - 3 从[hyperledger-fabric releases](https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric/hyperledger-fabric/)中获取对于平台的Orderer组件和peer组件，放到server/bin/linux(windows,drawin)/amd64/目录下。
        
        bin/
          └── linux
