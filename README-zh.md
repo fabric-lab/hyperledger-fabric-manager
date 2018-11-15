@@ -7,6 +7,8 @@
 - 下载并解压[v1.1.0.0-2018.10.12](https://github.com/fabric-lab/hyperledger-fabric-manager/releases/tag/V1.0.0)
 - 启动server程序
 - 访问http://localhost:8080 
+## 在线交流
+- QQ群 522367231
 
 ## 视频教程
 - [fabric manager bilibili 9分钟教程](https://www.bilibili.com/video/av33670267/)
