@@ -21,7 +21,7 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
-import { injectIntl  } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 
 const columnData = [
@@ -52,22 +52,25 @@ class MspTable extends React.Component {
     this.state = {
       order: 'asc',
       orderBy: 'Name',
+      selected: [],
+      commonName: '',
       data: [],
       msps: [],
     };
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.state.data !== newProps.data|| 
+    if (this.state.data !== newProps.data ||
       this.state.selected !== newProps.selected) {
       let data = newProps.data;
       let selected = newProps.selected;
       if (data[selected] != undefined) {
         let msps = data[selected].MSPs;
+        let commonName = data[selected].CommonName;
 
-        this.setState({ data: newProps.data, msps: msps });
+        this.setState({ data: newProps.data, msps: msps, commonName: commonName });
       } else {
-        this.setState({ data: [], msps: [] });
+        this.setState({ data: [], msps: [], commonName: '' });
       }
     }
   }
@@ -88,17 +91,31 @@ class MspTable extends React.Component {
     this.setState({ msps, order, orderBy });
   };
 
+  addMsp = (event,commonName) => {
+    let data = JSON.stringify({ formMode: "edit", commonName: commonName  });
+    this.props.history.push({
+      pathname: `/mspcard/${data}`
+
+    });
+  }
+
   render() {
 
-    const { classes, history, data, selected } = this.props;
-    const { order, orderBy, msps } = this.state;
-
+    const { classes, history, data, selected, intl } = this.props;
+    const { order, orderBy, msps ,commonName} = this.state;
+    const tooltip = (<Tooltip title={intl.formatMessage({ id: "add_msp" })}>
+      <Button variant="raised" color="primary" className={classes.button} onClick={event => this.addMsp(event, commonName)}>
+        <AddIcon className={classes.leftIcon} />
+        {intl.formatMessage({ id: "add_msp" })}
+      </Button>
+    </Tooltip>
+    )
 
     return (
       <div className='container'>
         <div className='row flipInX'>
           <Paper className={classes.root}>
-            <EnhancedTableToolbar title="MSPs" />
+            <EnhancedTableToolbar title="MSPs" tooltip={tooltip} />
             <div className={classes.tableWrapper}>
               <Table className={classes.table} aria-labelledby="tableTitle">
                 <EnhancedTableHead
@@ -139,4 +156,4 @@ MspTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MspTable);
+export default withStyles(styles)(injectIntl(MspTable));

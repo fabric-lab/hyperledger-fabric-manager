@@ -21,6 +21,7 @@ import ChainCode from './ChainCode';
 import ChainCodeCard from './ChainCodeCard';
 import OrdererConsoleCard from './OrdererConsoleCard';
 import PeerConsoleCard from './PeerConsoleCard'
+import MspCard from './MspCard';
 
 
 
@@ -33,7 +34,7 @@ class App extends React.Component {
                 <Route exact path="/" component={Home}/>
                 <Route path='/test' component={JsonForm} />
                 <Route path='/certs' component={CertTable} history={this.props.history} />
-                <Route path='/addcert/:data' component={CertCard} />
+                <Route path='/certcard/:data' component={CertCard} />
                 <Route path='/organizationcard/:data' component={OrganizationCard} />
                 <Route path='/Organizations' component={Organization} history={this.props.history} />
                 <Route path='/Orderer' component={Orderer} history={this.props.history}/>
@@ -48,6 +49,7 @@ class App extends React.Component {
                 <Route path='/chaincodecard/:data' component={ChainCodeCard} />
                 <Route path='/ordererconsolecard/:data' component={OrdererConsoleCard} />
                 <Route path='/peerconsolecard/:data' component={PeerConsoleCard} />
+                <Route path='/mspcard/:data' component={MspCard} />
          </Switch>
         <Footer />
       </div>

@@ -27,6 +27,11 @@ func (o *Orderer) Create() error {
 	return nil
 }
 
+func (c *Orderer) Update() error {
+
+	return nil
+}
+
 func (o *Orderer) Exec(cmdInfo map[string]string) string {
 	err := o.config(cmdInfo)
 	if err != nil {

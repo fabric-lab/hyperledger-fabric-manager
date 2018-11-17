@@ -25,7 +25,9 @@ import { injectIntl  } from 'react-intl';
 
 
 const columnData = [
-  { id: 'Name', numeric: true, disablePadding: false, label: 'common_name' }
+  { id: 'Name', numeric: true, disablePadding: false, label: 'common_name' },
+  { id: 'Type', numeric: true, disablePadding: false, label: 'ca_type' },
+  { id: 'Key', numeric: true, disablePadding: false, label: 'key' }
 ];
 
 
@@ -108,26 +110,51 @@ class CertTable extends React.Component {
   };
 
   handleViewClick = (event, caName, commonName) => {
-    let data = JSON.stringify({ caName: caName, commonName: commonName });
+    let data = JSON.stringify({ caName: caName, commonName: commonName, formMode: "view"  });
     this.props.history.push({
-      pathname: `/addcert/${data}`,
+      pathname: `/certcard/${data}`,
     });
   };
 
 
+  addCert = (event, commonName) => {
+    let data = JSON.stringify({ formMode: "edit", commonName: commonName });
+    this.props.history.push({
+      pathname: `/certcard/${data}`
 
+    });
+  }
+
+  getCATypeName=(type) =>{
+    if(type=="ca.root"){
+        return this.props.intl.formatMessage({id:"ca_root"})
+    }else if(type=="ca.common"){
+      return this.props.intl.formatMessage({id:"ca_common"})
+    }if(type=="tlsca.root"){
+      return this.props.intl.formatMessage({id:"ca_tls_root"})
+    }else if(type=="tlsca.common"){
+      return this.props.intl.formatMessage({id:"ca_tls_common"})
+    }
+    return ""
+  }
 
   render() {
 
     const { classes, history, data, selected,intl } = this.props;
     const { order, orderBy, pems, commonName } = this.state;
 
+    const tooltip = (<Tooltip title={intl.formatMessage({ id: "add_cert" })}>
+    <Button variant="raised" color="primary" className={classes.button} onClick={event => this.addCert(event, commonName)}>
+      <AddIcon className={classes.leftIcon} />
+      {intl.formatMessage({ id: "add_cert" })}
+    </Button>
+  </Tooltip>)
 
     return (
       <div className='container'>
         <div className='row flipInX'>
           <Paper className={classes.root}>
-            <EnhancedTableToolbar title={intl.formatMessage({id:"certificate"}) } />
+            <EnhancedTableToolbar title={intl.formatMessage({id:"certificate"}) } tooltip={tooltip} />
             <div className={classes.tableWrapper}>
               <Table className={classes.table} aria-labelledby="tableTitle">
                 <EnhancedTableHead
@@ -143,6 +170,8 @@ class CertTable extends React.Component {
                         hover key={n.Name}
                       >
                         <TableCell numeric>{n.Name}</TableCell>
+                        <TableCell numeric>{this.getCATypeName(n.Type)}</TableCell>
+                        <TableCell numeric>{n.Key==""?intl.formatMessage({id:"no"}):intl.formatMessage({id:"yes"})}</TableCell>
                         <TableCell>
                           <Button variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name, commonName)} >  {intl.formatMessage({id:"view"}) }  </Button>
                         </TableCell>

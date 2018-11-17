@@ -31,6 +31,11 @@ func (c *Channel) Create() error {
 	return nil
 }
 
+func (c *Channel) Update(i interface{}) error {
+
+	return nil
+}
+
 func (c *Channel) Exec(cmdInfo map[string]string) string {
 	cmdInfo["ChannelId"] = c.Name
 	cmdInfo["OrdererEndpoint"] = c.OrdererEndpoint

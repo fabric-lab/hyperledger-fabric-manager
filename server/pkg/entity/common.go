@@ -34,6 +34,11 @@ var (
 	orderers      = "orderers"
 
 	windows       = "windows"
+	
+	caRoot		  = "ca.root"
+	caCommon	  = "ca.common"
+	tlscaRoot	  = "tlsca.root"
+	tlscaCommon	  = "tlsca.common"
 )
 
 

@@ -81,6 +81,28 @@ func CreateEntity(c *gin.Context) {
 	c.JSON(200, gin.H{})
 }
 
+func UpdateEntity(c *gin.Context) {
+	en := c.Param("entity")
+	id := c.Param("id")
+
+	var i interface{}
+	c.BindJSON(&i)
+	e ,_:= store.Bt.ViewByKey(en,id)
+	e    = entity.MapToEntity(e, en)
+	if a, ok := e.(entity.Action); ok {
+		a.Update(i)
+	}
+	b, _ := json.Marshal(e)
+
+	err := store.Bt.AddJson(en, id, b)
+	if err != nil {
+		c.JSON(500, gin.H{"Error": err.Error()})
+		return
+	}
+
+	c.JSON(200, gin.H{})
+}
+
 func DelEntity(c *gin.Context) {
 	en := c.Param("entity")
 	id := c.Param("id")
@@ -137,7 +159,7 @@ func GetCert(c *gin.Context) {
 	e = entity.MapToEntity(e, "organizations")
 	if o, ok := e.(*entity.Organization); ok {
 
-		ca, key, err := entity.GetCA(caName, *o)
+		ca, key, err := o.GetCA(caName)
 		if err != nil {
 			c.JSON(500, gin.H{"Error": err.Error()})
 			return

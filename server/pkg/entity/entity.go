@@ -7,6 +7,7 @@ import (
 
 type Action interface {
 	Create() error
+	Update(i interface{}) error
 }
 
 type Get interface {

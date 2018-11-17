@@ -4,43 +4,26 @@ const nameSchema = {
     type: "object",
     required:["CommonName"],
     properties: {
+      Oper:{
+        type:"string",
+        default:"add_cert",
+        title: "Oper"
+      },
       CommonName:{
-        type:"string"
+        type:"string",
+        title: "common_name"
       },
-
-      Country: {
-        type:"array",
-        items:{
-            type:"string"
-        }
+      IsTLS:{
+        type: "string",
+        enum: ["no","yes"],
+        default:"no",
+        title: "is_tls"
       },
-      Organization:{
-        type:"array",
-        items:{
-            type:"string"
-        }
-      },
-      OrganizationalUnit:{
-        type:"array",
-        items:{
-            type:"string"
-        }
-      },
-      Locality:{
-        type:"array",
-        items:{
-            type:"string"
-        }
-      },
-      Province:{
-        type:"array",
-        items:{
-            type:"string"
-        }
-      },
-      
-      
-     
+      ParentCa:{
+        type: "string",
+        enum: [],
+        title: "parent_ca"
+      }
     }
 
   }
@@ -49,6 +32,11 @@ const nameSchema = {
     type: "object",
     required:["Cert"],
     properties: {
+      Oper:{
+        type:"string",
+        default:"add_pem",
+        title: "Oper"
+      },
       Key:{
         type:"string",
         title:"keys"
@@ -57,7 +45,12 @@ const nameSchema = {
         type:"string",
         title:"certificate"
       },
-
+      IsTLS:{
+        type: "string",
+        enum: ["no","yes"],
+        default:"no",
+        title: "is_tls"
+      },
      
      
     }
@@ -76,8 +69,24 @@ const nameSchema = {
       Key: {
         "ui:widget": "textarea"
       },
+      Oper: {
+        "ui:widget": "hidden"
+      }
   }
   
-
+  const iuiPemSchema = {
+    Cert: {
+      "ui:widget": "textarea"
+    },
+    Key: {
+      "ui:widget": "textarea"
+    },
+    Oper: {
+      "ui:widget": "hidden"
+    }
+  }
+  const uiSchema = {
+    Oper: {"ui:widget": "hidden"}
+  };
   
-  export { nameSchema, pemSchema,uiPemSchema,widgets }
+  export { nameSchema, pemSchema,uiPemSchema,iuiPemSchema,widgets,uiSchema }

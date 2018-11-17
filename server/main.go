@@ -22,6 +22,7 @@ func main() {
 	r.GET("/api/entity/:entity/:id", pkg.GetEntity)
 	r.GET("/api/entity/:entity/:id/state", pkg.GetNodeState)
 	r.POST("/api/entity/:entity/:id", pkg.CreateEntity)
+	r.PUT("/api/entity/:entity/:id", pkg.UpdateEntity)
 	r.PUT("/api/entity/:entity/:id/cmd", pkg.ExecCMD)
 	r.DELETE("/api/entity/:entity/:id", pkg.DelEntity)
 
