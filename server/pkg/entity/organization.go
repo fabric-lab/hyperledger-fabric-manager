@@ -1,6 +1,7 @@
 package entity
 
 import (
+	
 	"crypto"
 	"crypto/x509"
 	"encoding/pem"
@@ -15,7 +16,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
+	"github.com/mitchellh/mapstructure"
 	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/store"
 )
 
@@ -39,20 +40,7 @@ type PEM struct {
 	Type string
 }
 
-type MSP struct {
-	Name string
-	Path string
-	Type string
-	Role string
-	Roots []string
-	Intermediates []string
-	Ous string
-	Administrators []string
-	CRL []string
-	NodeId string
-	TlsRoots []string
-	TlsIntermediates []string
-}
+
 
 
 
@@ -98,7 +86,7 @@ func (o *Organization) Update(i interface{}) error {
 			}
 			o.addPem(v["Cert"].(string),key,v["IsTLS"].(string))
 		}else if(v["Oper"].(string)  == "add_msp"){
-
+			o.addMsp(i)
 		}
 	}
 	
@@ -106,9 +94,22 @@ func (o *Organization) Update(i interface{}) error {
 }
 
 func (o *Organization) addMsp(i interface{}) error{
+	var m MSP
+	mapstructure.Decode(i, &m)
+	o.MSPs = append(o.MSPs,m)
+	return nil
+}
+
+func (o *Organization) exportMsp(name string) error{
+	for _, v := range o.MSPs {
+		if(v.Name == name){
+
+		}
+	}
 
 	return nil
 }
+
 
 func (o *Organization) addPem(certdata string,key string,isTls string ) error {
 	cBlock, _ := pem.Decode([]byte(certdata))
@@ -140,6 +141,15 @@ func (o *Organization) addPem(certdata string,key string,isTls string ) error {
 	pem.Cert = certdata
 	o.PEMs = append(o.PEMs, *pem)
 	return nil
+}
+
+func (o *Organization)getPEMByName(name string) (PEM,error) {
+	for _,v := range o.PEMs {
+		if(v.Name == name){
+			return v,nil
+		}
+	}
+	return nil,errors.New("no PEM found ")
 }
 
 func (o *Organization) addCert(caName string,parentCaName string,isTls string ) error {

@@ -1,8 +1,18 @@
 const schema = {
 
     type: "object",
-    required:["Roots","Administrators","NodeId"],
+    required:["Roots","Administrators","NodeId","Name","Type"],
     properties: {
+      Name:{
+        type: "string",
+        title:"msp_name"
+      },
+      Type:{
+        type: "string",
+        enum: ["network","channel","orderer","peer"],
+        title:"msp_level"
+      },
+
       Roots:{
         type:"array",
         items: {

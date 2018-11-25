@@ -77,6 +77,7 @@ const zh_CN = {
     log:"日志",
     msp_id:"MSP ID",
     msp_name:"MSP名称",
+    msp_level:"MSP 类型",
     name:"名称",
     no:"否",
     node_already_run:"节点已经启动",

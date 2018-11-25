@@ -77,6 +77,7 @@ const en_US = {
     log:"Log",
     msp_id:"MSP ID",
     msp_name:"MSP Name",
+    msp_level:"MSP Level",
     no:"No",
     name:"Name",
     node_already_run:"Node has been run",

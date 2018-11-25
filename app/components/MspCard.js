@@ -39,13 +39,13 @@ class MspCard extends React.Component {
                 }
                 allca.push(PEM.Name)
             });
-            schema.properties.CRL.items.enum = allca;
-            schema.properties.Roots.items.enum = rootca;
-            schema.properties.Intermediates.items.enum = ca;
-            schema.properties.Administrators.items.enum = ca;
-            schema.properties.NodeId.enum = ca;
-            schema.properties.TlsRoots.items.enum = tlsrootca;
-            schema.properties.TlsIntermediates.items.enum = tlsca;
+            schema.properties.CRL.items.enum = allca.length==0?[""]:allca;
+            schema.properties.Roots.items.enum = rootca.length==0?[""]:rootca;
+            schema.properties.Intermediates.items.enum = ca.length==0?[""]:ca;
+            schema.properties.Administrators.items.enum = ca.length==0?[""]:ca;
+            schema.properties.NodeId.enum = ca.length==0?[""]:ca;
+            schema.properties.TlsRoots.items.enum = tlsrootca.length==0?[""]:tlsrootca;
+            schema.properties.TlsIntermediates.items.enum = tlsca.length==0?[""]:tlsca;
             that.setState({schema:schema,isInit:true});
         }).catch(function(e) {
             console.log(e);
@@ -83,7 +83,7 @@ class MspCard extends React.Component {
 
     render() {
         const {intl } = this.props;
-
+        const { orgCommonName } = this.state;
         let that = this;
         const handleFormSubmit = ({formData}) => {
             formData["Oper"] = "add_msp";
