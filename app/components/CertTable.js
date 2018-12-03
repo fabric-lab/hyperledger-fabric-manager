@@ -42,6 +42,9 @@ const styles = theme => ({
   tableWrapper: {
     overflowX: 'auto',
   },
+  button: {
+    margin: theme.spacing.unit,
+  },
 });
 
 class CertTable extends React.Component {
@@ -63,10 +66,10 @@ class CertTable extends React.Component {
       this.state.selected !== newProps.selected) {
       let data = newProps.data;
       let selected = newProps.selected;
-      if (data[selected] != undefined) {
+      if (data[selected] != undefined ) {
         let pems = data[selected].PEMs;
         let commonName = data[selected].CommonName;
-        this.setState({ data: newProps.data, pems: pems, commonName: commonName });
+        this.setState({ data: newProps.data, pems: pems==undefined?[]:pems, commonName: commonName });
       } else {
         this.setState({ data: [], pems: [], commonName: '' });
       }
@@ -116,6 +119,23 @@ class CertTable extends React.Component {
     });
   };
 
+  handleDelClick = (event, caName, commonName) => {
+    let that  = this;
+    let formData = {};
+    formData["Oper"] = "del_cert";
+    formData["CaName"] = caName;
+    var url = `api/entity/organizations/${commonName}`;
+    fetch(url,{
+        method: 'put',
+        body:JSON.stringify(formData)
+    }).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+        that.props.callback({ data: data == null ? [] : data, selected: 0 });
+    }).catch(function(e) {
+        console.log("Oops, error");
+    });
+};
 
   addCert = (event, commonName) => {
     let data = JSON.stringify({ formMode: "edit", commonName: commonName });
@@ -173,7 +193,8 @@ class CertTable extends React.Component {
                         <TableCell numeric>{this.getCATypeName(n.Type)}</TableCell>
                         <TableCell numeric>{n.Key==""?intl.formatMessage({id:"no"}):intl.formatMessage({id:"yes"})}</TableCell>
                         <TableCell>
-                          <Button variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name, commonName)} >  {intl.formatMessage({id:"view"}) }  </Button>
+                          <Button className={classes.button}  variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name, commonName)} >  {intl.formatMessage({id:"view"}) }  </Button>
+                          <Button className={classes.button}  variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.Name, commonName)} >  {intl.formatMessage({id:"delete"}) }  </Button>
                         </TableCell>
                       </TableRow>
                     );

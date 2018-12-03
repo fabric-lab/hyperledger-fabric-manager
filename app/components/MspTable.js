@@ -43,6 +43,9 @@ const styles = theme => ({
   tableWrapper: {
     overflowX: 'auto',
   },
+  button: {
+    margin: theme.spacing.unit,
+  },
 });
 
 class MspTable extends React.Component {
@@ -68,7 +71,7 @@ class MspTable extends React.Component {
         let msps = data[selected].MSPs;
         let commonName = data[selected].CommonName;
 
-        this.setState({ data: newProps.data, msps: msps, commonName: commonName });
+        this.setState({ data: newProps.data, msps: msps==undefined?[]:msps, commonName: commonName });
       } else {
         this.setState({ data: [], msps: [], commonName: '' });
       }
@@ -90,6 +93,49 @@ class MspTable extends React.Component {
 
     this.setState({ msps, order, orderBy });
   };
+
+  handleExportClick = (event, commonName,mspName) => {
+      let formData = {};
+      formData["Oper"] = "export_msp";
+      formData["MspName"] = mspName;
+      var url = `api/entity/organizations/${commonName}`;
+      fetch(url,{
+          method: 'put',
+          body:JSON.stringify(formData)
+      }).then(function(response) {
+          return response;
+      }).then(function(data) {
+          console.log(data);
+      }).catch(function(e) {
+          console.log("Oops, error");
+      });
+  };
+
+  handleDelClick = (event, commonName,mspName) => {
+    let that  = this;
+    let formData = {};
+    formData["Oper"] = "del_msp";
+    formData["MspName"] = mspName;
+    var url = `api/entity/organizations/${commonName}`;
+    fetch(url,{
+        method: 'put',
+        body:JSON.stringify(formData)
+    }).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+        that.props.callback({ data: data == null ? [] : data, selected: 0 });
+    }).catch(function(e) {
+        console.log("Oops, error");
+    });
+  }
+
+  handleViewClick = (event, commonName,mspName) => {
+    let data = JSON.stringify({ formMode: "view", commonName: commonName, mspName:mspName });
+    this.props.history.push({
+      pathname: `/mspcard/${data}`
+
+    });
+  }
 
   addMsp = (event,commonName) => {
     let data = JSON.stringify({ formMode: "edit", commonName: commonName  });
@@ -134,8 +180,11 @@ class MspTable extends React.Component {
                         <TableCell numeric>{n.Path}</TableCell>
                         <TableCell numeric>{n.Type}</TableCell>
                         <TableCell numeric>{n.Role}</TableCell>
-                        <TableCell>
-                        </TableCell>
+                        <TableCell >
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleExportClick(event,commonName, n.Name)} >   {intl.formatMessage({id:"export"}) } </Button>
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event,commonName, n.Name)} >   {intl.formatMessage({id:"view"}) } </Button>
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event,commonName, n.Name)} >   {intl.formatMessage({id:"delete"}) } </Button>
+                         </TableCell>
                       </TableRow>
                     );
                   })}

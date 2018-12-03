@@ -99,8 +99,13 @@ func UpdateEntity(c *gin.Context) {
 		c.JSON(500, gin.H{"Error": err.Error()})
 		return
 	}
+	records, err := store.Bt.View(en)
+	if err != nil {
+		c.JSON(500, gin.H{"Error": err.Error()})
+		return
+	}
 
-	c.JSON(200, gin.H{})
+	c.JSON(200, records)
 }
 
 func DelEntity(c *gin.Context) {

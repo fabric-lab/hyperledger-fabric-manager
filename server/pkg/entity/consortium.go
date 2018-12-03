@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"fmt"
 	"errors"
 	"path/filepath"
 	"strings"
@@ -42,6 +43,7 @@ func configConsortiumOrgs(path string, cName string) ([]*profileConfig.Organizat
 	for _, v := range consortium.MspNames {
 		oname := strings.SplitN(v, ".", 2)[1]
 		peer,_:= getPeerByLocalMSPId(v)
+		fmt.Println(v)
 		if(peer ==nil){
 			return nil,errors.New("desc_2"+"|"+oname)
 		}

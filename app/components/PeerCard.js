@@ -33,9 +33,8 @@ class PeerCard extends React.Component {
                 if(organization.MSPs){
                     organization.MSPs.forEach(
                         function (msp) {
-                            if(msp.Type=="peer" && msp.Role=="peer"){
+                            if(msp.Type=="peer"){
                                 localMsps.push(msp.Name);
-                            }else if(msp.Type=="peer" && msp.Role=="admin"){
                                 adminMsps.push(msp.Name);
                             }
                             

@@ -35,9 +35,14 @@ class CertCard extends React.Component {
         }).then(function(data) {
            
             let values = [];
-            data.PEMs.forEach(function (PEM) {
-                values.push(PEM.Name);
-            });
+            if(data.PEMs!=undefined){
+                data.PEMs.forEach(function (PEM) {
+                    values.push(PEM.Name);
+                });
+            }else {
+                values.push("")
+            }
+            
             nameSchema.properties.ParentCa.enum = values;
             let names =[];
             names[0] = that.props.intl.formatMessage({id:'no'})

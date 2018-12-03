@@ -1,6 +1,8 @@
 package entity
 
 import (
+	"fmt"
+	
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -23,8 +25,7 @@ type MSP struct {
 }
 
 
-func (m *MSP)GenerateLocalMSP(o *Organization,baseDir string) error {
-
+func (m *MSP)ExportMSP(o *Organization) error {
 	// create folder structure
 	mspDir := filepath.Join(m.Path, "msp")
 	tlsDir := filepath.Join(m.Path, "tls")
@@ -42,48 +43,56 @@ func (m *MSP)GenerateLocalMSP(o *Organization,baseDir string) error {
 	//cacerts
 	for _, v := range m.Roots {
 		pem,err := o.getPEMByName(v)
-		if(err != nil){
-			ioutil.WriteFile(filepath.Join(mspDir, "cacerts",pem.Name), []byte(pem.Cert), 0644)
+		if(err == nil){
+			fileName  := fmt.Sprintf("%s.%s",pem.Name,"pem")
+			err  = ioutil.WriteFile(filepath.Join(mspDir, "cacerts",fileName), []byte(pem.Cert), 0644)
+			
 		}
 	}
 
 	for _, v := range m.Intermediates {
 		pem,err := o.getPEMByName(v)
-		if(err != nil){
-			ioutil.WriteFile(filepath.Join(mspDir, "intermediatecerts",pem.Name), []byte(pem.Cert), 0644)
+		if(err == nil){
+			fileName  := fmt.Sprintf("%s.%s",pem.Name,"pem")
+			ioutil.WriteFile(filepath.Join(mspDir, "intermediatecerts",fileName), []byte(pem.Cert), 0644)
 		}
 	}
 
 	for _, v := range m.Administrators {
 		pem,err := o.getPEMByName(v)
-		if(err != nil){
-			ioutil.WriteFile(filepath.Join(mspDir, "admincerts",pem.Name), []byte(pem.Cert), 0644)
+		if(err == nil){
+			fileName  := fmt.Sprintf("%s.%s",pem.Name,"pem")
+			ioutil.WriteFile(filepath.Join(mspDir, "admincerts",fileName), []byte(pem.Cert), 0644)
 		}
 	}
 
 	for _, v := range m.CRL {
 		pem,err := o.getPEMByName(v)
 		if(err != nil){
-			ioutil.WriteFile(filepath.Join(mspDir, "crls",pem.Name), []byte(pem.Cert), 0644)
+			fileName  := fmt.Sprintf("%s.%s",pem.Name,"pem")
+			ioutil.WriteFile(filepath.Join(mspDir, "crls",fileName), []byte(pem.Cert), 0644)
 		}
 	}
 
 	for _, v := range m.TlsRoots {
 		pem,err := o.getPEMByName(v)
-		if(err != nil){
-			ioutil.WriteFile(filepath.Join(mspDir, "tlscacerts",pem.Name), []byte(pem.Cert), 0644)
+		if(err == nil){
+			fileName  := fmt.Sprintf("%s.%s",pem.Name,"pem")
+			ioutil.WriteFile(filepath.Join(mspDir, "tlscacerts",fileName), []byte(pem.Cert), 0644)
 		}
 	}
 
 	for _, v := range m.TlsIntermediates {
 		pem,err := o.getPEMByName(v)
-		if(err != nil){
-			ioutil.WriteFile(filepath.Join(mspDir, "tlsintermediatecerts",pem.Name), []byte(pem.Cert), 0644)
+		if(err == nil){
+			fileName  := fmt.Sprintf("%s.%s",pem.Name,"pem")
+			ioutil.WriteFile(filepath.Join(mspDir, "tlsintermediatecerts",fileName), []byte(pem.Cert), 0644)
 		}
 	}
 	ioutil.WriteFile(filepath.Join(mspDir, "config.yaml"), []byte(m.Ous), 0644)
 	pem,err := o.getPEMByName(m.NodeId)
-	ioutil.WriteFile(filepath.Join(mspDir, "signcerts",pem.Name), []byte(pem.Cert), 0644)
+	fileName  := fmt.Sprintf("%s.%s",pem.Name,"pem")
+	ioutil.WriteFile(filepath.Join(mspDir, "signcerts",fileName), []byte(pem.Cert), 0644)
 	ioutil.WriteFile(filepath.Join(mspDir, "keystore","key"), []byte(pem.Key), 0644)
 
 	
@@ -98,6 +107,8 @@ func (m *MSP) createFolderStructure(rootDir string, local bool) error {
 		filepath.Join(rootDir, "admincerts"),
 		filepath.Join(rootDir, "cacerts"),
 		filepath.Join(rootDir, "tlscacerts"),
+		filepath.Join(rootDir, "tlsintermediatecerts"),
+		
 	}
 	if local {
 		folders = append(folders, filepath.Join(rootDir, "keystore"),

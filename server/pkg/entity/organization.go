@@ -79,6 +79,8 @@ func (o *Organization) Update(i interface{}) error {
 				parentCa = v["ParentCa"].(string)
 			}
 			o.addCert(v["CommonName"].(string) ,parentCa,v["IsTLS"].(string) );
+		}else if(v["Oper"].(string)  == "del_cert"){
+			o.delCert(v["CaName"].(string))
 		}else if(v["Oper"].(string)  == "add_pem"){
 			key := ""
 			if(v["Key"] != nil){
@@ -87,23 +89,56 @@ func (o *Organization) Update(i interface{}) error {
 			o.addPem(v["Cert"].(string),key,v["IsTLS"].(string))
 		}else if(v["Oper"].(string)  == "add_msp"){
 			o.addMsp(i)
+		}else if(v["Oper"].(string)  == "del_msp"){
+			o.delMsp(v["MspName"].(string))
+		}else if(v["Oper"].(string)  == "export_msp"){
+			o.exportMsp(v["MspName"].(string))
 		}
 	}
 	
 	return nil
 }
 
+func (o *Organization) delCert(CaName string) error{
+	var temps []PEM
+	for _,v := range o.PEMs {
+		if(v.Name == CaName){
+			continue
+		}else{
+			temps = append(temps,v)
+		}
+	}
+	o.PEMs = temps;
+
+	return nil
+}
+
+func (o *Organization) delMsp(MspName string) error{
+	var temps []MSP
+	for _,v := range o.MSPs {
+		if(v.Name == MspName){
+			continue
+		}else{
+			temps = append(temps,v)
+		}
+	}
+	o.MSPs = temps;
+	return nil
+}
+
 func (o *Organization) addMsp(i interface{}) error{
 	var m MSP
 	mapstructure.Decode(i, &m)
+	m.Path = Path(mspDir, o.CommonName, m.Name)
 	o.MSPs = append(o.MSPs,m)
 	return nil
 }
 
 func (o *Organization) exportMsp(name string) error{
+	
 	for _, v := range o.MSPs {
 		if(v.Name == name){
-
+			v.ExportMSP(o)
 		}
 	}
 
@@ -149,7 +184,7 @@ func (o *Organization)getPEMByName(name string) (PEM,error) {
 			return v,nil
 		}
 	}
-	return nil,errors.New("no PEM found ")
+	return PEM{},errors.New("no PEM found ")
 }
 
 func (o *Organization) addCert(caName string,parentCaName string,isTls string ) error {

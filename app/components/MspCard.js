@@ -57,22 +57,22 @@ class MspCard extends React.Component {
      componentWillMount =  () => {
         let that = this
         let data = JSON.parse(this.props.match.params.data);
-        let {formMode,key,commonName} = data;
+        let {formMode,key,commonName,mspName} = data;
         this.getData(commonName);
-        if(key){
-            var url = 'api/organizations/'+commonName;
+        if(mspName){
+            var url = 'api/entity/organizations/'+commonName;
             fetch(url,{
                 method: 'get',
             }).then(response=>{
                 return response.json();
             }).then(function(data) {
                 data.MSPs.forEach(function (MSP) {
-                    if(MSP.Name == key){
-
+                    if(MSP.Name == mspName){
+                        that.setState({formData:MSP,formMode:formMode});
                     }
                 })
-                let formData = {Cert:data.ca,Key:data.key}
-                that.setState({formData:formData,formMode:formMode});
+                
+                
             }).catch(function(e) {
                 console.log("Oops, error");
             });
