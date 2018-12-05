@@ -1,7 +1,7 @@
 const schema = {
 
       type: "object",
-      required:["Name","ListenAddress","ListenPort","Consortiums","LocalMSPID"],
+      required:["Name","ListenAddress","ListenPort","Consortiums","LocalMSPID","Organization"],
       properties: {
         Name:{
           type: "string",
@@ -29,6 +29,11 @@ const schema = {
           type: "number",
           default: 7050,
           title:"port"
+        },
+        Organization:{
+          type: "string",
+          enum: [],
+          title: "organization"
         },
         LocalMSPID:{
           type: "string",

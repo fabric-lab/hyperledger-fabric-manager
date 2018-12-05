@@ -33,7 +33,7 @@ class ConsortiumCard extends React.Component {
                     organization.MSPs.forEach(
                         function (msp) {
                             if(msp.Type=="network"){
-                                names.push(organization.Organization+" "+msp.Name);
+                                names.push(organization.Name+" "+msp.Name);
                                 values.push(msp.Name);
                             }
                             

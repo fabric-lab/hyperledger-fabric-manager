@@ -23,11 +23,12 @@ import { injectIntl  } from 'react-intl';
 
 
 const columnData = [
+  { id: 'Name', numeric: true, disablePadding: false, label: 'organization' },
+  { id: 'CommonName', numeric: true, disablePadding: false, label:'common_name' },
   { id: 'Country', numeric: true, disablePadding: false, label: 'country' },
   { id: 'Province', numeric: true, disablePadding: false, label: 'province' },
   { id: 'Locality', numeric: true, disablePadding: false, label: 'locality' },
-  { id: 'Organization', numeric: true, disablePadding: false, label: 'organization' },
-  { id: 'CommonName', numeric: true, disablePadding: false, label:'common_name' }
+
 ];
 
 const styles = theme => ({
@@ -52,7 +53,7 @@ class OrganizationTable extends React.Component {
 
     this.state = {
       order: 'asc',
-      orderBy: 'CommonName',
+      orderBy: 'Organization',
       selected: [],
       data: []
     };
@@ -144,17 +145,17 @@ class OrganizationTable extends React.Component {
                       <TableRow
                         hover
                         onClick={event => this.handleClick(event, k)}
-                        key ={n.CommonName}
+                        key ={n.Name}
                       >
-
+                        <TableCell numeric>{n.Name}</TableCell>
+                        <TableCell numeric>{n.CommonName}</TableCell>
                         <TableCell numeric>{n.Country}</TableCell>
                         <TableCell numeric>{n.Province}</TableCell>
                         <TableCell numeric>{n.Locality}</TableCell>
-                        <TableCell numeric>{n.Organization}</TableCell>
-                        <TableCell numeric>{n.CommonName}</TableCell>
+                        
                         <TableCell >
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.CommonName)} >   {intl.formatMessage({id:"delete"}) } </Button>
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.CommonName)} >  {intl.formatMessage({id:"view"}) } </Button>
+                          <Button key="delete" className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.Name)} >   {intl.formatMessage({id:"delete"}) } </Button>
+                          <Button key="view" className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name)} >  {intl.formatMessage({id:"view"}) } </Button>
                         </TableCell>
                       </TableRow>
                     );

@@ -18,7 +18,7 @@ class jsonForm extends React.Component {
     }
 
     render() {
-        const { classes,schema, uiSchema, fields, formContext, formData, handleForm, formMode,widgets,intl } = this.props;
+        const { classes,schema, uiSchema, fields, formContext, formData, handleForm,onChange, formMode,widgets,intl } = this.props;
         let values = {};
         Object.keys(schema.properties).forEach(function (key) {
             let property = schema.properties[key];
@@ -49,7 +49,7 @@ class jsonForm extends React.Component {
             )
         }
         return (
-            <Form  widgets={widgets} schema={schema} uiSchema={uiSchema} fields={fields} formContext={formContext} formData={formData} onSubmit={handleForm} >
+            <Form  widgets={widgets} schema={schema} uiSchema={uiSchema} fields={fields} formContext={formContext} formData={formData} onSubmit={handleForm} onChange={onChange} >
                 {bt}
             </Form>
         )

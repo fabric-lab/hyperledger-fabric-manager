@@ -37,6 +37,12 @@ const schema = {
         type: "string",
         enum: [],
         title: "admin_msp"
+      },
+      AnchorPeer:{
+        type: "string",
+        enum: ["no","yes"],
+        default:"no",
+        title: "anchor_peer"
       }
     }
  

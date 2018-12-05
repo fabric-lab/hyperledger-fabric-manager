@@ -9,6 +9,7 @@ const zh_CN = {
     add_orderer:"添加Orderer",
     add_organization:"添加组织",
     add_peer:"添加Peer",
+    anchor_peer:"锚点Peer",
     admin_msp:"管理员MSP",
     back:"返回",
     block_num:"区块数",

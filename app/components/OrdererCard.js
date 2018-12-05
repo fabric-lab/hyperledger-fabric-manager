@@ -13,7 +13,8 @@ class OrdererCard extends React.Component {
            formData:{},
            formMode:"edit",
            schema:schema,
-           isInit:false
+           isInit:false,
+
         }
     }
 
@@ -26,7 +27,7 @@ class OrdererCard extends React.Component {
             return response.json();
         }).then(function(data) {
            
-           let values = [];
+           let values=[],organizations = [];
            data.organizations.forEach(function (organization) {
                 if(organization.MSPs){
                     organization.MSPs.forEach(
@@ -38,8 +39,10 @@ class OrdererCard extends React.Component {
                         }
                     )
                 }
+                organizations.push(organization.Name);
              });
-            schema.properties.LocalMSPID.enum = values;
+            schema.properties.LocalMSPID.enum    = values;
+            schema.properties.Organization.enum  = organizations;
             values = [];
             data.consortiums.forEach(function (consortium) {
                 values.push(consortium.Name);
@@ -93,6 +96,9 @@ class OrdererCard extends React.Component {
                 console.log("Oops, error");
             });
         }
+        const handleFormChange = ({formData}) => {
+           console.log(formData)
+        }
         return (
             <div className='container'>
 
@@ -102,7 +108,7 @@ class OrdererCard extends React.Component {
                             <div className='panel panel-default'>
                                 <div className='panel-heading'>{this.state.formMode=="view"?intl.formatMessage({id:'view'}):intl.formatMessage({id:'add_orderer'}) } </div>
                                 <div className='panel-body'>
-                                { this.state.isInit && <JsonForm schema={this.state.schema} uiSchema={uiSchema} handleForm={handleFormSubmit} formData={this.state.formData} formMode={this.state.formMode} history={this.props.history}/>}
+                                { this.state.isInit && <JsonForm schema={this.state.schema} uiSchema={uiSchema} handleForm={handleFormSubmit} onChange={handleFormChange} formData={this.state.formData} formMode={this.state.formMode} history={this.props.history}/>}
                                 </div>
                             </div>
                         </div>

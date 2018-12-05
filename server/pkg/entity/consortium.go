@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"errors"
 	"path/filepath"
-	"strings"
-
 	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/store"
 	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/util"
 	profileConfig "github.com/hyperledger/fabric/common/tools/configtxgen/localconfig"
@@ -41,7 +39,8 @@ func configConsortiumOrgs(path string, cName string) ([]*profileConfig.Organizat
 	}
 
 	for _, v := range consortium.MspNames {
-		oname := strings.SplitN(v, ".", 2)[1]
+		o ,_ := GetOrgByMspName(v);
+		oname := o.Name
 		peer,_:= getPeerByLocalMSPId(v)
 		fmt.Println(v)
 		if(peer ==nil){

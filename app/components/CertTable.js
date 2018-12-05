@@ -54,7 +54,7 @@ class CertTable extends React.Component {
       order: 'asc',
       orderBy: 'Name',
       selected: [],
-      commonName: '',
+      organization: '',
       pems: [],
       data: []
     };
@@ -68,10 +68,10 @@ class CertTable extends React.Component {
       let selected = newProps.selected;
       if (data[selected] != undefined ) {
         let pems = data[selected].PEMs;
-        let commonName = data[selected].CommonName;
-        this.setState({ data: newProps.data, pems: pems==undefined?[]:pems, commonName: commonName });
+        let organization = data[selected].Name;
+        this.setState({ data: newProps.data, pems: pems==undefined?[]:pems, organization: organization });
       } else {
-        this.setState({ data: [], pems: [], commonName: '' });
+        this.setState({ data: [], pems: [], organization: '' });
       }
     }
   }
@@ -112,19 +112,19 @@ class CertTable extends React.Component {
     this.setState({ selected: newSelected });
   };
 
-  handleViewClick = (event, caName, commonName) => {
-    let data = JSON.stringify({ caName: caName, commonName: commonName, formMode: "view"  });
+  handleViewClick = (event, caName, organization) => {
+    let data = JSON.stringify({ caName: caName, organization: organization, formMode: "view"  });
     this.props.history.push({
       pathname: `/certcard/${data}`,
     });
   };
 
-  handleDelClick = (event, caName, commonName) => {
+  handleDelClick = (event, caName, organization) => {
     let that  = this;
     let formData = {};
     formData["Oper"] = "del_cert";
     formData["CaName"] = caName;
-    var url = `api/entity/organizations/${commonName}`;
+    var url = `api/entity/organizations/${organization}`;
     fetch(url,{
         method: 'put',
         body:JSON.stringify(formData)
@@ -137,8 +137,8 @@ class CertTable extends React.Component {
     });
 };
 
-  addCert = (event, commonName) => {
-    let data = JSON.stringify({ formMode: "edit", commonName: commonName });
+  addCert = (event, organization) => {
+    let data = JSON.stringify({ formMode: "edit", organization: organization });
     this.props.history.push({
       pathname: `/certcard/${data}`
 
@@ -161,10 +161,10 @@ class CertTable extends React.Component {
   render() {
 
     const { classes, history, data, selected,intl } = this.props;
-    const { order, orderBy, pems, commonName } = this.state;
+    const { order, orderBy, pems, organization } = this.state;
 
     const tooltip = (<Tooltip title={intl.formatMessage({ id: "add_cert" })}>
-    <Button variant="raised" color="primary" className={classes.button} onClick={event => this.addCert(event, commonName)}>
+    <Button variant="raised" color="primary" className={classes.button} onClick={event => this.addCert(event, organization)}>
       <AddIcon className={classes.leftIcon} />
       {intl.formatMessage({ id: "add_cert" })}
     </Button>
@@ -193,8 +193,8 @@ class CertTable extends React.Component {
                         <TableCell numeric>{this.getCATypeName(n.Type)}</TableCell>
                         <TableCell numeric>{n.Key==""?intl.formatMessage({id:"no"}):intl.formatMessage({id:"yes"})}</TableCell>
                         <TableCell>
-                          <Button className={classes.button}  variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name, commonName)} >  {intl.formatMessage({id:"view"}) }  </Button>
-                          <Button className={classes.button}  variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.Name, commonName)} >  {intl.formatMessage({id:"delete"}) }  </Button>
+                          <Button className={classes.button}  variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, n.Name, organization)} >  {intl.formatMessage({id:"view"}) }  </Button>
+                          <Button className={classes.button}  variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, n.Name, organization)} >  {intl.formatMessage({id:"delete"}) }  </Button>
                         </TableCell>
                       </TableRow>
                     );

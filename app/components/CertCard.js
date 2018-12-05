@@ -16,7 +16,7 @@ class CertCard extends React.Component {
         super(props);
         this.state = {
             formMode:"view",
-            orgCommonName:"",
+            organization:"",
             activeTab:0,
             nameSchema:nameSchema,
             pemSchema:pemSchema,
@@ -25,9 +25,9 @@ class CertCard extends React.Component {
         }
     }
 
-    getData = (orgCommonName) => {
+    getData = (organization) => {
         let that=this;
-        var url = `api/entity/organizations/${orgCommonName}`;
+        var url = `api/entity/organizations/${organization}`;
         fetch(url,{
             method: 'get',
         }).then(response=>{
@@ -58,10 +58,10 @@ class CertCard extends React.Component {
     componentDidMount = () => {
         let that = this
         let data = JSON.parse(this.props.match.params.data);
-        let {formMode,commonName,caName} = data;
-        this.getData(commonName);
+        let {formMode,organization,caName} = data;
+        this.getData(organization);
         if(caName){
-            var url = 'api/organizations/'+commonName+"/"+caName;
+            var url = 'api/organizations/'+organization+"/"+caName;
             fetch(url,{
                 method: 'get',
             }).then(response=>{
@@ -73,17 +73,17 @@ class CertCard extends React.Component {
                 console.log("Oops, error");
             });
         }else{
-            this.setState({formMode:formMode,orgCommonName:commonName});
+            this.setState({formMode:formMode,organization:organization});
         }
     }
 
     render() {
         const {intl} = this.props;
-        const { activeTab,formMode,orgCommonName } = this.state;
+        const { activeTab,formMode,organization } = this.state;
 
         let that = this;
         const handleFormSubmit = ({formData}) => {
-            var url = `api/entity/organizations/${orgCommonName}`;
+            var url = `api/entity/organizations/${organization}`;
             fetch(url,{
                 method: 'put',
                 body:JSON.stringify(formData)

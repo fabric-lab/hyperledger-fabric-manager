@@ -41,7 +41,7 @@ class OrganizationCard extends React.Component {
 
         const handleFormSubmit = ({formData}) => {
 
-            var url = `api/entity/organizations/${formData.CommonName}`;
+            var url = `api/entity/organizations/${formData.Name}`;
             fetch(url,{
                 method: 'post',
                 mode: "no-cors",

@@ -1,7 +1,15 @@
 const organizationSchema = {
     type: "object",
-    required:["Organization","CommonName"],
+    required:["Name","CommonName"],
     properties: {
+      Name:{
+        type:"string",
+        title:"organization"
+      },
+      CommonName:{
+        type:"string",
+        title:"common_name"
+      },
       Country: {
         type:"string",
         title:"country"
@@ -13,14 +21,6 @@ const organizationSchema = {
       Locality:{
         type:"string",
         title:"locality"
-      },
-      Organization:{
-        type:"string",
-        title:"organization"
-      },
-      CommonName:{
-        type:"string",
-        title:"common_name"
       }
     }
 

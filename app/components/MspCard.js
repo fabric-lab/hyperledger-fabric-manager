@@ -18,9 +18,9 @@ class MspCard extends React.Component {
         }
     }
   
-    getData = (orgCommonName) => {
+    getData = (organization) => {
         let that=this;
-        var url = `api/entity/organizations/${orgCommonName}`;
+        var url = `api/entity/organizations/${organization}`;
         fetch(url,{
             method: 'get',
         }).then(response=>{
@@ -57,10 +57,10 @@ class MspCard extends React.Component {
      componentWillMount =  () => {
         let that = this
         let data = JSON.parse(this.props.match.params.data);
-        let {formMode,key,commonName,mspName} = data;
-        this.getData(commonName);
+        let {formMode,key,organization,mspName} = data;
+        this.getData(organization);
         if(mspName){
-            var url = 'api/entity/organizations/'+commonName;
+            var url = 'api/entity/organizations/'+organization;
             fetch(url,{
                 method: 'get',
             }).then(response=>{
@@ -77,17 +77,17 @@ class MspCard extends React.Component {
                 console.log("Oops, error");
             });
         }else{
-            this.setState({formMode:formMode,orgCommonName:commonName});
+            this.setState({formMode:formMode,organization:organization});
         }
     }
 
     render() {
         const {intl } = this.props;
-        const { orgCommonName } = this.state;
+        const { organization } = this.state;
         let that = this;
         const handleFormSubmit = ({formData}) => {
             formData["Oper"] = "add_msp";
-            var url = `api/entity/organizations/${orgCommonName}`;
+            var url = `api/entity/organizations/${organization}`;
             fetch(url,{
                 method: 'put',
                 body:JSON.stringify(formData)

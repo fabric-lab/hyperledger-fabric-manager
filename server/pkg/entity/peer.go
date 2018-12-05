@@ -17,6 +17,7 @@ type Peer struct {
 	LocalMSPID          string
 	AdminMSPID          string
 	EventListenPort   uint16
+	AnchorPeer          string
 }
 
 func (p *Peer) Create() error {

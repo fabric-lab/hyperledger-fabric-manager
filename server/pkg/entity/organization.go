@@ -24,7 +24,7 @@ type Organization struct {
 	Country            string
 	Province           string
 	Locality           string
-	Organization       string
+	Name               string
 	CommonName         string
 	OrganizationalUnit string
 	StreetAddress      string
@@ -199,7 +199,7 @@ func (o *Organization) addCert(caName string,parentCaName string,isTls string ) 
 		}
 		o.generateCa(parentCa,caName,caType)
 	}else{
-		rootCA, err := ca.NewCA(tempDir, o.Organization, caName, o.Country, o.Province, o.Locality, o.OrganizationalUnit, o.StreetAddress, o.PostalCode)
+		rootCA, err := ca.NewCA(tempDir, o.Name, caName, o.Country, o.Province, o.Locality, o.OrganizationalUnit, o.StreetAddress, o.PostalCode)
 		if err != nil {
 			return err
 		}
@@ -219,7 +219,7 @@ func (o *Organization) generateRootCa() error {
 	os.RemoveAll(tempDir)
 
 	// generate ROOT CA
-	rootCA, err := ca.NewCA(tempDir, o.Organization, "ca."+o.CommonName, o.Country, o.Province, o.Locality, o.OrganizationalUnit, o.StreetAddress, o.PostalCode)
+	rootCA, err := ca.NewCA(tempDir, o.Name, "ca."+o.CommonName, o.Country, o.Province, o.Locality, o.OrganizationalUnit, o.StreetAddress, o.PostalCode)
 	if err != nil {
 		return err
 	}
@@ -229,7 +229,7 @@ func (o *Organization) generateRootCa() error {
 	}
 	// generate TLS CA
 	os.RemoveAll(tempDir)
-	tlsCA, err := ca.NewCA(tempDir, o.Organization, "tlsca."+o.CommonName, o.Country, o.Province, o.Locality, o.OrganizationalUnit, o.StreetAddress, o.PostalCode)
+	tlsCA, err := ca.NewCA(tempDir, o.Name, "tlsca."+o.CommonName, o.Country, o.Province, o.Locality, o.OrganizationalUnit, o.StreetAddress, o.PostalCode)
 	if err != nil {
 		return err
 	}
@@ -533,4 +533,26 @@ func getOrgByName(oName string) (*Organization, error) {
 		return o, nil
 	}
 	return o, nil
+}
+
+
+func GetOrgByMspName(mspName string) (*Organization, error) {
+
+	var o *Organization
+	records, err := store.Bt.View(organizations)
+	if err != nil {
+		return o, err
+	}
+	for _, v := range records {
+		i := MapToEntity(v, organizations)
+		if o, ok := i.(*Organization); ok {
+			for _, m := range o.MSPs {
+				if mspName == m.Name {
+					return o, nil
+				}
+			}
+		}
+
+	}
+	return o, errors.New("Not find Organization")
 }
