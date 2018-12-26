@@ -28,6 +28,11 @@ const schema = {
         default: 7053,
         title:"Event端口"
       },
+      Organization:{
+        type: "string",
+        enum: [],
+        title: "organization"
+      },
       LocalMSPID:{
         type: "string",
         enum: [],

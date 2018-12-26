@@ -67,6 +67,7 @@ func (c *Channel) Exec(cmdInfo map[string]string) string {
 func (c *Channel) config(cmdInfo map[string]string) error {
 
 	path := filepath.Join(channelDir, c.Name)
+	
 	profileBytes, err := c.configChannelProfile(path, c.Consortium)
 	if err != nil {
 		return err
@@ -115,8 +116,7 @@ func (c *Channel) configCore(path string) error {
 	if err != nil {
 		return err
 	}
-	mspName := consortium.MspNames[0]
-	oname := strings.SplitN(mspName, ".", 2)[1]
+	oname := consortium.Organizations[0]
 	localMSPID := fmt.Sprintf("%s.%s", "admin", oname)
 	template := filepath.Join(templateDir, configyml)
 	corepath := filepath.Join(path, coreYml)
@@ -131,6 +131,7 @@ func (c *Channel) configCore(path string) error {
 		return err
 	}
 	msp, _ := getMspByName(localMSPID)
+
 	err = util.Copy(msp.Path, path)
 	if err != nil {
 		return err

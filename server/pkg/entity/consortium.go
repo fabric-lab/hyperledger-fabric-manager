@@ -1,8 +1,9 @@
 package entity
 
 import (
-	"fmt"
-	"errors"
+	 "fmt"
+	 "strings"
+	// "errors"
 	"path/filepath"
 	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/store"
 	"github.com/fabric-lab/hyperledger-fabric-manager/server/pkg/util"
@@ -14,7 +15,25 @@ type Consortium struct {
 	Name     string
 	Type     string
 	Desc     string
+	Organizations []string
 	MspNames []string
+}
+
+func (c *Consortium) Create() error {
+	var organizations []string
+	var mspNames      []string
+	for _,v := range c.MspNames {
+		temps := strings.Split(v,"|");
+		organizations = append(organizations,temps[0]);
+		mspNames = append(mspNames,temps[1]);
+	}
+	c.Organizations = organizations
+	c.MspNames      = mspNames
+	return nil
+}
+
+func (c *Consortium) Update(i interface{}) error {
+	return nil
 }
 
 func getConsortiumByName(cName string) (*Consortium, error) {
@@ -38,14 +57,20 @@ func configConsortiumOrgs(path string, cName string) ([]*profileConfig.Organizat
 		return nil, err
 	}
 
-	for _, v := range consortium.MspNames {
-		o ,_ := GetOrgByMspName(v);
-		oname := o.Name
-		peer,_:= getPeerByLocalMSPId(v)
-		fmt.Println(v)
-		if(peer ==nil){
-			return nil,errors.New("desc_2"+"|"+oname)
+	for k, v := range consortium.MspNames {
+		oname := consortium.Organizations[k]
+	
+		peerNodes := getPeerByOrganization(oname)
+		if(peerNodes!=nil){
+			for _, v := range peerNodes {
+				fmt.Println(v)
+			}
 		}
+		// peer,_:= getPeerByLocalMSPId(v)
+		// fmt.Println(v)
+		// if(peer ==nil){
+		// 	return nil,errors.New("desc_2"+"|"+oname)
+		// }
 		
 		msp, err := getMspByName(v)
 		mspPath := msp.Path
@@ -56,11 +81,11 @@ func configConsortiumOrgs(path string, cName string) ([]*profileConfig.Organizat
 		util.Copy(mspPath, dest)
 
 		var AnchorPeers []*profileConfig.AnchorPeer
-		a := &profileConfig.AnchorPeer{
-			Host: "127.0.0.1",
-			Port: int(peer.ListenPort),
-		}
-		AnchorPeers = append(AnchorPeers, a)
+		// a := &profileConfig.AnchorPeer{
+		// 	Host: "127.0.0.1",
+		// 	Port: 7070,
+		// }
+		// AnchorPeers = append(AnchorPeers, a)
 		organization := &profileConfig.Organization{
 			Name:        oname,
 			ID:          oname,

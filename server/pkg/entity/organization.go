@@ -91,9 +91,11 @@ func (o *Organization) Update(i interface{}) error {
 			o.addMsp(i)
 		}else if(v["Oper"].(string)  == "del_msp"){
 			o.delMsp(v["MspName"].(string))
-		}else if(v["Oper"].(string)  == "export_msp"){
-			o.exportMsp(v["MspName"].(string))
 		}
+		
+		// else if(v["Oper"].(string)  == "export_msp"){
+		// 	o.exportMsp(v["MspName"].(string))
+		// }
 	}
 	
 	return nil
@@ -131,6 +133,7 @@ func (o *Organization) addMsp(i interface{}) error{
 	mapstructure.Decode(i, &m)
 	m.Path = Path(mspDir, o.CommonName, m.Name)
 	o.MSPs = append(o.MSPs,m)
+	o.exportMsp(m.Name)
 	return nil
 }
 

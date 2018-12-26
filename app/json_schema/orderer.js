@@ -1,7 +1,7 @@
 const schema = {
 
       type: "object",
-      required:["Name","ListenAddress","ListenPort","Consortiums","LocalMSPID","Organization"],
+      required:["Name","ListenAddress","ListenPort","Consortiums","LocalMSPID"],
       properties: {
         Name:{
           type: "string",

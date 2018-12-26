@@ -14,6 +14,7 @@ type Peer struct {
 	ListenAddress       string
 	ListenPort          uint16
 	ChainCodeListenPort uint16
+	Organization        string
 	LocalMSPID          string
 	AdminMSPID          string
 	EventListenPort   uint16
@@ -22,6 +23,10 @@ type Peer struct {
 
 func (p *Peer) Create() error {
 	Path(peerDir, p.Name)
+	return nil
+}
+
+func (c *Peer) Update(i interface{}) error {
 	return nil
 }
 
@@ -97,6 +102,22 @@ func getPeerByName(cName string) (*Peer, error) {
 	return p, nil
 }
 
+func getPeerByOrganization(orgName string) ([]*Peer) {
+	is, err := store.Bt.View(peers)
+	if err != nil {
+		return nil
+	}
+	var peerNodes []*Peer
+	for _, v := range is {
+		v = MapToEntity(v, peers)
+		if p, ok := v.(*Peer); ok {
+			if(p.Organization == orgName){
+				peerNodes = append(peerNodes,p)
+			}
+		}
+	} 
+	return peerNodes
+}
 
 func getPeerByLocalMSPId(localMSPID string) (*Peer, error) {
 	var p *Peer

@@ -25,9 +25,7 @@ class PeerCard extends React.Component {
         }).then(response=>{
             return response.json();
         }).then(function(data) {
-          
-           let localMsps = [];
-           let adminMsps = [];
+           let localMsps = [],adminMsps = [],organizationNames=[];
 
             data.organizations.forEach(function (organization) {
                 if(organization.MSPs){
@@ -37,14 +35,15 @@ class PeerCard extends React.Component {
                                 localMsps.push(msp.Name);
                                 adminMsps.push(msp.Name);
                             }
-                            
                         }
                     )
                 }
+                organizationNames.push(organization.Name);
              });
             schema.properties.LocalMSPID.enum = localMsps;
             schema.properties.AdminMSPID.enum = adminMsps;
-            that.setState({schema:schema,isInit:true});
+            schema.properties.Organization.enum = organizationNames;
+            that.setState({schema:schema,isInit:true,organizations:data.organizations});
         }).catch(function(e) {
             console.log(e);
         });
@@ -72,9 +71,12 @@ class PeerCard extends React.Component {
         }
     }
 
+    
+
     render() {
         let that = this;
         const { intl } = this.props;
+        let { schema, formData, organizations } = this.state;
 
         const handleFormSubmit = ({formData}) => {
             var url = `api/entity/peers/${formData.Name}`;
@@ -91,6 +93,26 @@ class PeerCard extends React.Component {
                 console.log("Oops, error");
             });
         }
+        const handleFormChange = ({ formData }) => {
+            this.setState({ formData: formData });
+        }
+
+        schema = JSON.parse(JSON.stringify(schema));
+        if (formData.Organization) {
+            schema.properties.LocalMSPID.enum = [];
+            schema.properties.AdminMSPID.enum = [];
+            organizations.forEach(organization => {
+                if (organization.Name == formData.Organization) {
+                    organization.MSPs.forEach(msp => {
+                        if (msp.Type == "peer") {
+                            schema.properties.LocalMSPID.enum.push(msp.Name);
+                            schema.properties.AdminMSPID.enum.push(msp.Name);
+                        }
+                    })
+                }
+            })
+        }
+
         return (
             <div className='container'>
 
@@ -100,7 +122,7 @@ class PeerCard extends React.Component {
                             <div className='panel panel-default'>
                                 <div className='panel-heading'>{this.state.formMode=="view"?intl.formatMessage({id:'view'}):intl.formatMessage({id:'add_peer'}) }</div>
                                 <div className='panel-body'>
-                                     { this.state.isInit && <JsonForm schema={this.state.schema} uiSchema={uiSchema} handleForm={handleFormSubmit} formData={this.state.formData} formMode={this.state.formMode} history={this.props.history}/>}
+                                     { this.state.isInit && <JsonForm schema={schema} uiSchema={uiSchema} handleForm={handleFormSubmit} onChange={handleFormChange} formData={this.state.formData} formMode={this.state.formMode} history={this.props.history}/>}
                                 </div>
                             </div>
                         </div>

@@ -26,23 +26,19 @@ class ConsortiumCard extends React.Component {
         }).then(response=>{
             return response.json();
         }).then(function(data) {
-            let names  = [];
             let values = [];
             data.organizations.forEach(function (organization) {
                 if(organization.MSPs){
                     organization.MSPs.forEach(
                         function (msp) {
                             if(msp.Type=="network"){
-                                names.push(organization.Name+" "+msp.Name);
-                                values.push(msp.Name);
+                                values.push(organization.Name+"|"+msp.Name);
                             }
-                            
                         }
                     )
                 }
             });
             schema.properties.MspNames.items.enum      = values;
-            schema.properties.MspNames.items.enumNames = names;
             that.setState({schema:schema,isInit:true});
         }).catch(function(e) {
             console.log("Oops, error");
@@ -62,6 +58,12 @@ class ConsortiumCard extends React.Component {
             }).then(response=>{
                 return response.json();
             }).then(function(data) {
+                let mspNames = [];
+                for(let i=0;i<data.MspNames.length;i++){
+                   let mspName = data.Organizations[i]+"|"+ data.MspNames[i];
+                   mspNames.push(mspName);
+                }
+                data.MspNames = mspNames;
                 that.setState({formMode:formMode,formData:data});
             }).catch(function(e) {
                 console.log("Oops, error");

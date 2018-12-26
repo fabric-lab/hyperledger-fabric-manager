@@ -18,6 +18,7 @@ type Orderer struct {
 	OrdererType   string
 	ListenAddress string
 	ListenPort    uint16
+	Organization  string
 	LocalMSPID    string
 	Consortiums   []string
 }
@@ -27,8 +28,7 @@ func (o *Orderer) Create() error {
 	return nil
 }
 
-func (c *Orderer) Update() error {
-
+func (c *Orderer) Update(i interface{}) error {
 	return nil
 }
 
