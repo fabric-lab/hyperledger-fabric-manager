@@ -48,35 +48,33 @@ const styles = theme => ({
   },
 });
 
+const propsToMsp = (props)=>{
+  let data = props.data;
+  let selected = props.selected;
+  if (data[selected] != undefined) {
+    let msps = data[selected].MSPs;
+    let organization = data[selected].Name;
+    return { msps: msps == undefined ? [] : msps, organization: organization };
+  } else {
+    return { msps: [], organization: '' };
+  }
+}
+
 class MspTable extends React.Component {
   constructor(props, context) {
     super(props, context);
-
     this.state = {
       order: 'asc',
       orderBy: 'Name',
       selected: [],
-      organization: '',
-      data: [],
-      msps: [],
+      ...propsToMsp(props)
     };
   }
 
-  componentWillReceiveProps(newProps) {
-    if (this.state.data !== newProps.data ||
-      this.state.selected !== newProps.selected) {
-      let data = newProps.data;
-      let selected = newProps.selected;
-      if (data[selected] != undefined) {
-        let msps = data[selected].MSPs;
-        let organization = data[selected].Name;
-
-        this.setState({ data: newProps.data, msps: msps==undefined?[]:msps, organization: organization });
-      } else {
-        this.setState({ data: [], msps: [], organization: '' });
-      }
-    }
+  componentWillReceiveProps(props) {
+    this.setState(propsToMsp(props));
   }
+
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -94,51 +92,51 @@ class MspTable extends React.Component {
     this.setState({ msps, order, orderBy });
   };
 
-  handleExportClick = (event, organization,mspName) => {
-      let formData = {};
-      formData["Oper"] = "export_msp";
-      formData["MspName"] = mspName;
-      var url = `api/entity/organizations/${organization}`;
-      fetch(url,{
-          method: 'put',
-          body:JSON.stringify(formData)
-      }).then(function(response) {
-          return response;
-      }).then(function(data) {
-          console.log(data);
-      }).catch(function(e) {
-          console.log("Oops, error");
-      });
+  handleExportClick = (event, organization, mspName) => {
+    let formData = {};
+    formData["Oper"] = "export_msp";
+    formData["MspName"] = mspName;
+    var url = `api/entity/organizations/${organization}`;
+    fetch(url, {
+      method: 'put',
+      body: JSON.stringify(formData)
+    }).then(function (response) {
+      return response;
+    }).then(function (data) {
+      console.log(data);
+    }).catch(function (e) {
+      console.log("Oops, error");
+    });
   };
 
-  handleDelClick = (event, organization,mspName) => {
-    let that  = this;
+  handleDelClick = (event, organization, mspName) => {
+    let that = this;
     let formData = {};
     formData["Oper"] = "del_msp";
     formData["MspName"] = mspName;
     var url = `api/entity/organizations/${organization}`;
-    fetch(url,{
-        method: 'put',
-        body:JSON.stringify(formData)
-    }).then(function(response) {
-        return response.json();
-    }).then(function(data) {
-        that.props.callback({ data: data == null ? [] : data, selected: 0 });
-    }).catch(function(e) {
-        console.log("Oops, error");
+    fetch(url, {
+      method: 'put',
+      body: JSON.stringify(formData)
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      that.props.callback({ data: data == null ? [] : data, selected: 0 });
+    }).catch(function (e) {
+      console.log("Oops, error");
     });
   }
 
-  handleViewClick = (event, organization,mspName) => {
-    let data = JSON.stringify({ formMode: "view", organization: organization, mspName:mspName });
+  handleViewClick = (event, organization, mspName) => {
+    let data = JSON.stringify({ formMode: "view", organization: organization, mspName: mspName });
     this.props.history.push({
       pathname: `/mspcard/${data}`
 
     });
   }
 
-  addMsp = (event,organization) => {
-    let data = JSON.stringify({ formMode: "edit", organization: organization  });
+  addMsp = (event, organization) => {
+    let data = JSON.stringify({ formMode: "edit", organization: organization });
     this.props.history.push({
       pathname: `/mspcard/${data}`
 
@@ -146,9 +144,9 @@ class MspTable extends React.Component {
   }
 
   render() {
-
-    const { classes, history, data, selected, intl } = this.props;
-    const { order, orderBy, msps ,organization} = this.state;
+    const { classes, intl } = this.props;
+    const { order, orderBy, msps, organization } = this.state;
+    
     const tooltip = (<Tooltip title={intl.formatMessage({ id: "add_msp" })}>
       <Button variant="raised" color="primary" className={classes.button} onClick={event => this.addMsp(event, organization)}>
         <AddIcon className={classes.leftIcon} />
@@ -181,10 +179,10 @@ class MspTable extends React.Component {
                         <TableCell numeric>{n.Type}</TableCell>
                         <TableCell numeric>{n.Role}</TableCell>
                         <TableCell >
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleExportClick(event,organization, n.Name)} >   {intl.formatMessage({id:"export"}) } </Button>
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event,organization, n.Name)} >   {intl.formatMessage({id:"view"}) } </Button>
-                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event,organization, n.Name)} >   {intl.formatMessage({id:"delete"}) } </Button>
-                         </TableCell>
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleExportClick(event, organization, n.Name)} >   {intl.formatMessage({ id: "export" })} </Button>
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleViewClick(event, organization, n.Name)} >   {intl.formatMessage({ id: "view" })} </Button>
+                          <Button className={classes.button} variant="contained" size="small" color="primary" onClick={event => this.handleDelClick(event, organization, n.Name)} >   {intl.formatMessage({ id: "delete" })} </Button>
+                        </TableCell>
                       </TableRow>
                     );
                   })}

@@ -47,6 +47,18 @@ const styles = theme => ({
   },
 });
 
+const propsToPem=(props) => {
+  let data = props.data;
+  let selected = props.selected;
+  if (data[selected] != undefined ) {
+    let pems = data[selected].PEMs;
+    let organization = data[selected].Name;
+    return {  pems: pems==undefined?[]:pems, organization: organization };
+  } else {
+    return {  pems: [], organization: '' };
+  }
+}
+
 class CertTable extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -54,26 +66,13 @@ class CertTable extends React.Component {
       order: 'asc',
       orderBy: 'Name',
       selected: [],
-      organization: '',
-      pems: [],
-      data: []
+      ...propsToPem(props)
     };
   }
 
 
-  componentWillReceiveProps(newProps) {
-    if (this.state.data !== newProps.data || 
-      this.state.selected !== newProps.selected) {
-      let data = newProps.data;
-      let selected = newProps.selected;
-      if (data[selected] != undefined ) {
-        let pems = data[selected].PEMs;
-        let organization = data[selected].Name;
-        this.setState({ data: newProps.data, pems: pems==undefined?[]:pems, organization: organization });
-      } else {
-        this.setState({ data: [], pems: [], organization: '' });
-      }
-    }
+  componentWillReceiveProps(props) {
+      this.setState(propsToPem(props));
   }
 
   handleRequestSort = (event, property) => {
@@ -160,7 +159,7 @@ class CertTable extends React.Component {
 
   render() {
 
-    const { classes, history, data, selected,intl } = this.props;
+    const { classes,intl } = this.props;
     const { order, orderBy, pems, organization } = this.state;
 
     const tooltip = (<Tooltip title={intl.formatMessage({ id: "add_cert" })}>
